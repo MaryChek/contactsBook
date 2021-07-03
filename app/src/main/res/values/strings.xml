@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ft_hangouts</string>
+    <string name="new_contact">New Contact</string>
+    <string name="change_color">Change color</string>
+    <string name="contacts_book">Contacts book</string>
+    <string name="created_name_hint">Name</string>
+    <string name="created_number_hint">Number</string>
+    <string name="save">Save</string>
+    <string name="empty_name_error_message">The name field must not be empty</string>
+    <string name="invalid_number_error_message">Such number already exists</string>
+    <string name="empty_string" translatable="false" />
+</resources>

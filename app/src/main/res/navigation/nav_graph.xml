@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/ContactsBookFragment">
+
+    <fragment
+        android:id="@+id/ContactsBookFragment"
+        android:name="com.example.ft_hangouts.presentation.fragments.ContactsBookFragment"
+        android:label="@string/contacts_book"
+        tools:layout="@layout/fragment_contacts_book">
+
+        <action
+            android:id="@+id/action_ContactsBookFragment_to_ContactCreatorFragment"
+            app:destination="@id/ContactCreatorFragment" />
+        <action
+            android:id="@+id/action_ContactsBookFragment_to_ContactDetailsFragment"
+            app:destination="@id/ContactDetailsFragment" />
+        <action
+            android:id="@+id/action_ContactsBookFragment_to_ContactChatFragment"
+            app:destination="@id/ContactChatFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ContactCreatorFragment"
+        android:name="com.example.ft_hangouts.presentation.fragments.ContactCreatorFragment"
+        android:label="@string/new_contact"
+        tools:layout="@layout/fragment_contact_editor">
+
+        <action
+            android:id="@+id/action_ContactCreatorFragment_to_ContactsBookFragment"
+            app:destination="@id/ContactsBookFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ContactDetailsFragment"
+        android:name="com.example.ft_hangouts.presentation.fragments.ContactDetailsFragment">
+        <action
+            android:id="@+id/action_ContactDetailsFragment_to_contactEditorFragment"
+            app:destination="@id/ContactEditorFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ContactChatFragment"
+        android:name="com.example.ft_hangouts.presentation.fragments.ContactChatFragment"
+        android:label="ContactChatFragment">
+    </fragment>
+    <fragment
+        android:id="@+id/ContactEditorFragment"
+        android:name="com.example.ft_hangouts.presentation.fragments.ContactEditorFragment"
+        android:label="ContactEditorFragment" />
+</navigation>

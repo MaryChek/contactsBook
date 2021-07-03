@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ft_hangouts</string>
+    <string name="new_contact">Новый контакт</string>
+    <string name="change_color">Сменить цвет</string>
+    <string name="contacts_book">Контакты</string>
+    <string name="created_name_hint">Имя</string>
+    <string name="created_number_hint">Телефон</string>
+    <string name="save">Сохранить</string>
+    <string name="empty_name_error_message">Имя не должно быть пустым</string>
+    <string name="invalid_number_error_message">Такой номер уже существует</string>
+</resources>
