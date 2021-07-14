@@ -11,13 +11,16 @@ import androidx.annotation.CallSuper
 import androidx.annotation.StringRes
 import com.example.ft_hangouts.databinding.FragmentContactEditorBinding
 import com.example.ft_hangouts.presentation.models.ContactState
-import com.example.ft_hangouts.presentation.navigation.BaseNavigation
+import com.example.ft_hangouts.presentation.navigation.base.BaseNavigation
+import com.example.ft_hangouts.presentation.navigation.router.BaseRouter
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseContactEditorViewModel
 
 abstract class BaseContactEditorFragment<
+        Model: ContactState,
         FromScreen : BaseNavigation,
-        ViewModel: BaseContactEditorViewModel<FromScreen>>
-    : BaseViewModelFragment<ContactState, FromScreen, ViewModel>() {
+        Router : BaseRouter<FromScreen>,
+        ViewModel: BaseContactEditorViewModel<Model, FromScreen>>
+    : BaseViewModelFragment<Model, FromScreen, Router, ViewModel>() {
 
     protected var binding: FragmentContactEditorBinding? = null
 

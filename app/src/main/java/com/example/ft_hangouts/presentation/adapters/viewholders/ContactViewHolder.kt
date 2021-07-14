@@ -2,7 +2,7 @@ package com.example.ft_hangouts.presentation.adapters.viewholders
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ft_hangouts.databinding.ItemContactBinding
-import com.example.ft_hangouts.domain.models.Contact
+import com.example.ft_hangouts.presentation.models.Contact
 
 class ContactViewHolder(private val binding: ItemContactBinding) :
     RecyclerView.ViewHolder(binding.root) {

@@ -5,14 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.ft_hangouts.databinding.FragmentContactDetailBinding
 import com.example.ft_hangouts.presentation.fragments.base.BaseViewModelFragment
 import com.example.ft_hangouts.presentation.models.Contact
 import com.example.ft_hangouts.presentation.navigation.FromContactDetails
+import com.example.ft_hangouts.presentation.navigation.router.ContactDetailsRouter
 import com.example.ft_hangouts.presentation.viewmodels.ContactDetailsViewModel
 
 class ContactDetailsFragment
-    : BaseViewModelFragment<Contact, FromContactDetails, ContactDetailsViewModel>() {
+    : BaseViewModelFragment<Contact, FromContactDetails, ContactDetailsRouter, ContactDetailsViewModel>() {
     private var binding: FragmentContactDetailBinding? = null
 
     private val logTag: String = this::class.java.simpleName
@@ -49,12 +51,11 @@ class ContactDetailsFragment
     override fun getViewModelClass(): Class<ContactDetailsViewModel> =
         ContactDetailsViewModel::class.java
 
-    override fun goToScreen(destination: FromContactDetails): Any =
-        when (destination) {
-            is FromContactDetails.ContactEditor ->
-                navigate(destination.navigateToId, destination.contact)
-            is FromContactDetails.PreviousScreen -> navigateToPrevious()
-        }
+    override fun getNavRouter(): ContactDetailsRouter =
+        ContactDetailsRouter(navController)
+
+    override fun goToScreen(destination: FromContactDetails) =
+        router.goToScreen(destination)
 
     override fun updateScreen(model: Contact) {
         binding?.tvPersonName?.text = model.name

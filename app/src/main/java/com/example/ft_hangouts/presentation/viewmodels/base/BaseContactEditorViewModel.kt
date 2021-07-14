@@ -1,44 +1,29 @@
 package com.example.ft_hangouts.presentation.viewmodels.base
 
-import com.example.ft_hangouts.domain.interactors.ContactsInteractor
-import com.example.ft_hangouts.domain.models.Contact
 import com.example.ft_hangouts.presentation.models.ContactState
-import com.example.ft_hangouts.presentation.navigation.BaseNavigation
+import com.example.ft_hangouts.presentation.navigation.base.BaseNavigation
 
-abstract class BaseContactEditorViewModel<FromScreen : BaseNavigation>(
-    protected val interactor: ContactsInteractor
-) : BaseViewModel<ContactState, FromScreen>(ContactState()) {
-
-    protected fun updateModel(
-        personName: String? = model.contact?.name,
-        personNumber: String? = model.contact?.number,
-        isNumberIndividual: Boolean? = model.isNumberIndividual,
-    ) {
-        model = ContactState(
-            contact = Contact(personName, personNumber), isNumberIndividual = isNumberIndividual
-        )
-    }
+abstract class BaseContactEditorViewModel<
+        ContactStateModel: ContactState,
+        FromScreen : BaseNavigation>(
+    contactState: ContactStateModel
+) : BaseViewModel<ContactStateModel, FromScreen>(contactState) {
 
     fun onSaveContactClick() {
-        if (model.isCreateSuccess) {
-            model.contact?.let { contact ->
-                interactor.addContact(contact)
-            }
-            goToPrevious()
+        if (model.isContactCorrect) {
+            onContactCorrect()
         } else {
             showMessageError()
         }
     }
 
+    abstract fun onContactCorrect()
+
     abstract fun onAddPhotoClick()
 
-    open fun onNameSubmit(name: String) =
-        updateModel(personName = name)
+    abstract fun onNameSubmit(name: String)
 
-    open fun onNumberSubmit(number: String) {
-        val isNumberIndividual = interactor.isNumberIndividual(number)
-        updateModel(personNumber = number, isNumberIndividual = isNumberIndividual)
-    }
+    abstract fun onNumberSubmit(number: String)
 
     abstract fun showMessageError()
 }

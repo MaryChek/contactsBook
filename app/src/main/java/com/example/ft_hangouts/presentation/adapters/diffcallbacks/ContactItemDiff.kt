@@ -1,7 +1,7 @@
 package com.example.ft_hangouts.presentation.adapters.diffcallbacks
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.ft_hangouts.domain.models.Contact
+import com.example.ft_hangouts.presentation.models.Contact
 
 class ContactItemDiff : DiffUtil.ItemCallback<Contact>() {
     override fun areContentsTheSame(oldItem: Contact, newItem: Contact): Boolean =

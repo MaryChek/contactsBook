@@ -7,23 +7,27 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.CallSuper
-import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.ft_hangouts.presentation.App
-import com.example.ft_hangouts.presentation.navigation.BaseNavigation
-import com.example.ft_hangouts.presentation.navigation.GoToScreen
+import com.example.ft_hangouts.presentation.navigation.base.BaseNavigation
+import com.example.ft_hangouts.presentation.navigation.base.GoToScreen
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseViewModel
 
 abstract class BaseViewModelFragment<
         Model : Any,
-        Navigation : BaseNavigation,
-        ViewModel : BaseViewModel<Model, Navigation>>
-    : Fragment(), GoToScreen<Navigation> {
+        NavigationType : BaseNavigation,
+        Router : GoToScreen<NavigationType>,
+        ViewModel : BaseViewModel<Model, NavigationType>>
+    : Fragment() {
 
+    protected open lateinit var router: Router
     protected lateinit var viewModel: ViewModel
+    protected lateinit var navController: NavController
+        private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,12 +35,10 @@ abstract class BaseViewModelFragment<
         initViewModel()
     }
 
-    @CallSuper
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
     }
 
-    @CallSuper
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         when (item.itemId) {
             android.R.id.home -> {
@@ -56,12 +58,14 @@ abstract class BaseViewModelFragment<
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
         setupObservers()
+        router = getNavRouter()
         initOnBackPressedListener()
     }
 
     private fun setupObservers() {
-        viewModel.navigationUpdated.observe(viewLifecycleOwner, Observer(this::goToScreen))
+        viewModel.actionUpdated.observe(viewLifecycleOwner, Observer(this::goToScreen))
         viewModel.modelUpdated.observe(viewLifecycleOwner, Observer(this::updateScreen))
     }
 
@@ -75,17 +79,21 @@ abstract class BaseViewModelFragment<
             .addCallback(viewLifecycleOwner, onBackPressedCallback)
     }
 
-    protected fun navigate(@IdRes navigateToId: Int, arguments: Bundle? = null) {
-        findNavController().navigate(navigateToId, arguments)
-//        viewModel.clearNavigate()
-    }
-
-    protected open fun navigateToPrevious() {
-        findNavController().popBackStack()
-    }
+    abstract fun goToScreen(destination: NavigationType)
+//
+//    protected fun navigate(@IdRes navigateToId: Int, arguments: Bundle? = null) =
+//        findNavController().navigate(navigateToId, arguments)
+//
+//    protected open fun navigateToPrevious(@IdRes navigateToId: Int) =
+//        findNavController().popBackStack(navigateToId, true)
+//
+//    protected open fun navigateToPrevious() =
+//        findNavController().navigate(R.id.go_to_previous)
 
     protected open fun updateScreen(model: Model) =
         Unit
 
     abstract fun getViewModelClass(): Class<ViewModel>
+
+    abstract fun getNavRouter(): Router
 }

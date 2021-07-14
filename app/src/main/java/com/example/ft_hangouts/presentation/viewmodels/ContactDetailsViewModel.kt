@@ -25,7 +25,7 @@ class ContactDetailsViewModel
     fun onEditContactClick() {
         goToScreen(
             FromContactDetails.ContactEditor(
-                R.id.ContactChatFragment,
+                R.id.open_ContactEditorFragment,
                 getBundleForContactModel(model)
             )
         )

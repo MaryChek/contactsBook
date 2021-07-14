@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.ft_hangouts.databinding.ItemContactBinding
 import com.example.ft_hangouts.presentation.adapters.diffcallbacks.ContactItemDiff
 import com.example.ft_hangouts.presentation.adapters.viewholders.ContactViewHolder
-import com.example.ft_hangouts.domain.models.Contact
+import com.example.ft_hangouts.presentation.models.Contact
 
 class ContactsListAdapter(
     private val chatIconClickListener: (Contact) -> Unit,
