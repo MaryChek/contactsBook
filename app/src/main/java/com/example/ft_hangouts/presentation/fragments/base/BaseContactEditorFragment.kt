@@ -18,9 +18,10 @@ import com.example.ft_hangouts.presentation.viewmodels.base.BaseContactEditorVie
 abstract class BaseContactEditorFragment<
         Model: ContactState,
         FromScreen : BaseNavigation,
-        Router : BaseRouter<FromScreen>,
+        Navigate: BaseNavigation.Navigate,
+        Router : BaseRouter<Navigate>,
         ViewModel: BaseContactEditorViewModel<Model, FromScreen>>
-    : BaseViewModelFragment<Model, FromScreen, Router, ViewModel>() {
+    : BaseViewModelFragment<Model, FromScreen, Navigate, Router, ViewModel>() {
 
     protected var binding: FragmentContactEditorBinding? = null
 

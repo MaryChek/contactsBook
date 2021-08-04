@@ -19,9 +19,10 @@ import com.example.ft_hangouts.presentation.viewmodels.base.BaseViewModel
 
 abstract class BaseViewModelFragment<
         Model : Any,
-        NavigationType : BaseNavigation,
-        Router : GoToScreen<NavigationType>,
-        ViewModel : BaseViewModel<Model, NavigationType>>
+        FromScreen : BaseNavigation,
+        Navigate: BaseNavigation.Navigate,
+        Router : GoToScreen<Navigate>,
+        ViewModel : BaseViewModel<Model, FromScreen>>
     : Fragment() {
 
     protected open lateinit var router: Router
@@ -79,7 +80,7 @@ abstract class BaseViewModelFragment<
             .addCallback(viewLifecycleOwner, onBackPressedCallback)
     }
 
-    abstract fun goToScreen(destination: NavigationType)
+    abstract fun goToScreen(destination: FromScreen)
 //
 //    protected fun navigate(@IdRes navigateToId: Int, arguments: Bundle? = null) =
 //        findNavController().navigate(navigateToId, arguments)

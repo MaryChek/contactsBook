@@ -3,13 +3,15 @@ package com.example.ft_hangouts.presentation.navigation.router
 import androidx.navigation.NavController
 import com.example.ft_hangouts.presentation.navigation.FromContactCreator
 
-class ContactCreatorRouter(navController: NavController)
-    : BaseRouter<FromContactCreator>(navController) {
+class ContactCreatorRouter(navController: NavController) :
+    BaseRouter<FromContactCreator.Navigate>(navController) {
 
-    override fun goToScreen(destination: FromContactCreator) =
+    override fun goToScreen(destination: FromContactCreator.Navigate) =
         when (destination) {
-            is FromContactCreator.ContactsBook -> navController.navigate(destination.navigateToId)
-            is FromContactCreator.PreviousScreen -> goToPrevious()
-            else -> {}
+            is FromContactCreator.Navigate.ContactsBook ->
+                navController.navigate(destination.navigateToId)
+            is FromContactCreator.Navigate.PreviousScreen -> {
+                goToPrevious()
+            }
         }
 }

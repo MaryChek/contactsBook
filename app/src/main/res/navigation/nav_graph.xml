@@ -10,53 +10,52 @@
         android:name="com.example.ft_hangouts.presentation.fragments.ContactsBookFragment"
         android:label="@string/contacts_book"
         tools:layout="@layout/fragment_contacts_book">
+
         <action
             android:id="@+id/open_ContactCreatorFragment"
             app:destination="@id/ContactCreatorFragment" />
+
         <action
-            android:id="@+id/open_ContactDetailsFragment"
+            android:id="@+id/open_ContactDetailsFragment_from_ContactBook"
             app:destination="@id/ContactDetailsFragment" />
+
         <action
             android:id="@+id/open_ContactChatFragment"
             app:destination="@id/ContactChatFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/ContactCreatorFragment"
         android:name="com.example.ft_hangouts.presentation.fragments.ContactCreatorFragment"
         android:label="@string/new_contact"
-        tools:layout="@layout/fragment_contact_editor">
-        <action
-            android:id="@+id/go_to_previous"
-            app:destination="@id/ContactsBookFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_contact_editor" />
+
     <fragment
         android:id="@+id/ContactDetailsFragment"
         android:name="com.example.ft_hangouts.presentation.fragments.ContactDetailsFragment"
         android:label="Contact Details"
         tools:layout="@layout/fragment_contact_detail">
-        <action
-            android:id="@+id/go_to_previous"
-            app:destination="@id/ContactsBookFragment" />
+
         <action
             android:id="@+id/open_ContactEditorFragment"
             app:destination="@id/ContactEditorFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/ContactChatFragment"
         android:name="com.example.ft_hangouts.presentation.fragments.ContactChatFragment"
         android:label="ContactChatFragment"
-        tools:layout="@layout/fragment_contact_chat">
-        <action
-            android:id="@+id/go_to_previous"
-            app:destination="@id/ContactsBookFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_contact_chat" />
+
     <fragment
         android:id="@+id/ContactEditorFragment"
         android:name="com.example.ft_hangouts.presentation.fragments.ContactEditorFragment"
         android:label="ContactEditorFragment"
         tools:layout="@layout/fragment_contact_editor">
+
         <action
-            android:id="@+id/go_to_previous"
-            app:destination="@id/ContactDetailsFragment" />
+            android:id="@+id/open_ContactDetailsFragment_from_ContactEditorFragment"
+            app:destination="@id/ContactDetailsFragment"
+            app:popUpTo="@id/ContactsBookFragment" />
     </fragment>
 </navigation>

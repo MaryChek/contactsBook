@@ -11,11 +11,9 @@ class ContactRepository {
     fun addContact(contact: Contact) =
         contactList.add(contact)
 
-    fun removeContact(contact: Contact) =
-        contactList.remove(contact)
+    fun removeContact(contactId: Int) =
+        contactList.removeAt(contactId)
 
     fun updateContactById(contact: Contact) {
-
     }
-
 }

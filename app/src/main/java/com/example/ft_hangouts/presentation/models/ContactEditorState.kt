@@ -1,7 +1,6 @@
 package com.example.ft_hangouts.presentation.models
 
 class ContactEditorState(
-    val currentContact: Contact? = null,
-    updatedContact: Contact? = currentContact,
+    updatedContact: Contact? = null,
     isNumberIndividual: Boolean? = null
 ): ContactState(updatedContact, isNumberIndividual)

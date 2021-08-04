@@ -2,7 +2,6 @@ package com.example.ft_hangouts.presentation.fragments
 
 import android.os.Bundle
 import android.view.*
-import androidx.navigation.fragment.findNavController
 import com.example.ft_hangouts.R
 import com.example.ft_hangouts.databinding.FragmentContactsBookBinding
 import com.example.ft_hangouts.presentation.adapters.ContactsListAdapter
@@ -12,8 +11,9 @@ import com.example.ft_hangouts.presentation.navigation.FromContactsBook
 import com.example.ft_hangouts.presentation.navigation.router.ContactsBookRouter
 import com.example.ft_hangouts.presentation.viewmodels.ContactsBookViewModel
 
-class ContactsBookFragment :
-    BaseViewModelFragment<List<Contact>, FromContactsBook, ContactsBookRouter, ContactsBookViewModel>() {
+class ContactsBookFragment : BaseViewModelFragment<
+        List<Contact>, FromContactsBook, FromContactsBook.Navigate, ContactsBookRouter,
+        ContactsBookViewModel>() {
 
     private var binding: FragmentContactsBookBinding? = null
     private var adapter: ContactsListAdapter? = null
@@ -62,8 +62,8 @@ class ContactsBookFragment :
 
     override fun goToScreen(destination: FromContactsBook) {
         when (destination) {
-            is FromContactsBook.PreviousScreen -> goToPrevious()
-            else -> router.goToScreen(destination)
+            is FromContactsBook.Command.CloseActivity -> closeActivity()
+            is FromContactsBook.Navigate -> router.goToScreen(destination)
         }
     }
 
@@ -76,7 +76,7 @@ class ContactsBookFragment :
         binding = null
     }
 
-    private fun goToPrevious() {
+    private fun closeActivity() {
         activity?.finish()
     }
 }

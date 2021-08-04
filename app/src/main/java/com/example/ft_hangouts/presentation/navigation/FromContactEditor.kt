@@ -6,9 +6,14 @@ import androidx.annotation.StringRes
 import com.example.ft_hangouts.presentation.navigation.base.BaseNavigation
 
 sealed class FromContactEditor : BaseNavigation {
-    class PreviousScreen(@IdRes val navigateToId: Int) : FromContactEditor()
 
-    class ShowErrorMessage(@StringRes val errorMessageResId: Int): FromContactEditor()
+    sealed class Navigate : BaseNavigation.Navigate, FromContactEditor() {
+        object PreviousScreen : Navigate()
 
-    class ContactDetail(@IdRes val navigateToId: Int, val contact: Bundle): FromContactEditor()
+        class ContactDetail(@IdRes val navigateToId: Int, val contact: Bundle) : Navigate()
+    }
+
+    sealed class Command : BaseNavigation.Command, FromContactEditor() {
+        class ShowErrorMessage(@StringRes val errorMessageResId: Int) : Command()
+    }
 }

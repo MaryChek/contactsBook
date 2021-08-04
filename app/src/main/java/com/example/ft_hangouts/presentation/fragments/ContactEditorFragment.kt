@@ -3,7 +3,6 @@ package com.example.ft_hangouts.presentation.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.navigation.fragment.findNavController
 import com.example.ft_hangouts.presentation.fragments.base.BaseContactEditorFragment
 import com.example.ft_hangouts.presentation.models.Contact
 import com.example.ft_hangouts.presentation.models.ContactEditorState
@@ -12,7 +11,8 @@ import com.example.ft_hangouts.presentation.navigation.router.ContactEditorRoute
 import com.example.ft_hangouts.presentation.viewmodels.ContactEditorViewModel
 
 class ContactEditorFragment : BaseContactEditorFragment<
-            ContactEditorState, FromContactEditor, ContactEditorRouter, ContactEditorViewModel>() {
+            ContactEditorState, FromContactEditor, FromContactEditor.Navigate,
+        ContactEditorRouter, ContactEditorViewModel>() {
 
     private val logTag: String = this::class.java.simpleName
 
@@ -38,8 +38,10 @@ class ContactEditorFragment : BaseContactEditorFragment<
 
     override fun goToScreen(destination: FromContactEditor) =
         when (destination) {
-            is FromContactEditor.ShowErrorMessage -> showErrorMessage(destination.errorMessageResId)
-            else -> router.goToScreen(destination)
+            is FromContactEditor.Command.ShowErrorMessage ->
+                showErrorMessage(destination.errorMessageResId)
+            is FromContactEditor.Navigate ->
+                router.goToScreen(destination)
         }
 
     override fun updateScreen(model: ContactEditorState) {

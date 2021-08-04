@@ -20,11 +20,11 @@ class ContactDetailsViewModel
     }
 
     override fun goToPrevious() =
-        goToScreen(FromContactDetails.PreviousScreen)
+        goToScreen(FromContactDetails.Navigate.PreviousScreen)
 
     fun onEditContactClick() {
         goToScreen(
-            FromContactDetails.ContactEditor(
+            FromContactDetails.Navigate.ContactEditor(
                 R.id.open_ContactEditorFragment,
                 getBundleForContactModel(model)
             )

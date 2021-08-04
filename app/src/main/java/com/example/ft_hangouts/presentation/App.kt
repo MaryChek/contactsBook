@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.ViewModelProvider
 import com.example.ft_hangouts.data.repository.ContactRepository
 import com.example.ft_hangouts.domain.interactors.ContactsInteractor
+import com.example.ft_hangouts.presentation.mappers.ContactMapper
 import com.example.ft_hangouts.presentation.viewmodels.factory.ContactViewModelFactory
 
 class App: Application() {

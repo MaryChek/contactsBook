@@ -4,18 +4,20 @@ import android.os.Bundle
 import androidx.core.os.bundleOf
 import com.example.ft_hangouts.R
 import com.example.ft_hangouts.domain.interactors.ContactsInteractor
+import com.example.ft_hangouts.presentation.mappers.ContactMapper
 import com.example.ft_hangouts.presentation.models.Contact
 import com.example.ft_hangouts.presentation.navigation.FromContactsBook
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseViewModel
 
-class ContactsBookViewModel(private val interactor: ContactsInteractor)
-    : BaseViewModel<List<Contact>, FromContactsBook>(listOf()) {
+class ContactsBookViewModel(
+    private val interactor: ContactsInteractor,
+    private val mapper: ContactMapper,
+) : BaseViewModel<List<Contact>, FromContactsBook>(listOf()) {
 
     fun init() {
-        val contacts = interactor.getAllContacts() // TODO add mapper
-        updateModel(contacts.map {
-            Contact(it.name, it.number)
-        })
+        val contacts = interactor.getAllContacts()
+        val currentContacts: List<Contact> = mapper.mapContacts(contacts)
+        updateModel(currentContacts)
     }
 
     private fun updateModel(contacts: List<Contact>) {
@@ -25,14 +27,14 @@ class ContactsBookViewModel(private val interactor: ContactsInteractor)
 
     fun onButtonCreateNewContactClick() =
         goToScreen(
-            FromContactsBook.ContactCreator(
+            FromContactsBook.Navigate.ContactCreator(
                 R.id.open_ContactCreatorFragment
             )
         )
 
     fun onIconChatClick(contact: Contact) {}
 //        goToScreen(
-//            FromContactsBook.Chat(
+//            FromContactsBook.Navigate.Chat(
 //                R.id.open_ContactChatFragment,
 //                getBundleForContactModel(contact)
 //            )
@@ -40,15 +42,15 @@ class ContactsBookViewModel(private val interactor: ContactsInteractor)
 
     fun onImgContactClick(contact: Contact) =
         goToScreen(
-            FromContactsBook.ContactDetails(
-                R.id.open_ContactDetailsFragment,
+            FromContactsBook.Navigate.ContactDetails(
+                R.id.open_ContactDetailsFragment_from_ContactBook,
                 getBundleForContactModel(contact)
             )
         )
 
     override fun goToPrevious() =
-        goToScreen(FromContactsBook.PreviousScreen)
+        goToScreen(FromContactsBook.Command.CloseActivity)
 
-    private fun getBundleForContactModel(contact: Contact) : Bundle =
+    private fun getBundleForContactModel(contact: Contact): Bundle =
         bundleOf(Contact::class.java.simpleName to contact)
 }
