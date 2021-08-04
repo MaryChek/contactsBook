@@ -10,7 +10,7 @@
         android:id="@+id/imgPerson"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="1dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
         android:clickable="true"
         android:focusable="true"
@@ -36,13 +36,13 @@
         android:layout_marginStart="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/imgPerson"
         app:layout_constraintStart_toEndOf="@+id/imgPerson"
-        tools:text="8-915-36-82-407" />
+        tools:text="85" />
 
     <ImageView
         android:id="@+id/buttonGoToChat"
         android:layout_width="30dp"
         android:layout_height="25dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginEnd="32dp"
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
