@@ -9,4 +9,6 @@
     <string name="save">Сохранить</string>
     <string name="empty_name_error_message">Имя не должно быть пустым</string>
     <string name="invalid_number_error_message">Такой номер уже существует</string>
+    <string name="created_last_name_hint">Фамилия</string>
+    <string name="created_email_hint">Почта</string>
 </resources>

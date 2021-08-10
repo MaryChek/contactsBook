@@ -36,7 +36,7 @@ class ContactEditorFragment : BaseContactEditorFragment<
     override fun getNavRouter(): ContactEditorRouter =
         ContactEditorRouter(navController)
 
-    override fun goToScreen(destination: FromContactEditor) =
+    override fun navigateTo(destination: FromContactEditor) =
         when (destination) {
             is FromContactEditor.Command.ShowErrorMessage ->
                 showErrorMessage(destination.errorMessageResId)

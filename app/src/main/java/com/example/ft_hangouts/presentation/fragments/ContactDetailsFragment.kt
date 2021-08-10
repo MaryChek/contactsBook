@@ -55,7 +55,7 @@ class ContactDetailsFragment : BaseViewModelFragment<
     override fun getNavRouter(): ContactDetailsRouter =
         ContactDetailsRouter(navController)
 
-    override fun goToScreen(destination: FromContactDetails) =
+    override fun navigateTo(destination: FromContactDetails) =
         when (destination) {
             is FromContactDetails.Navigate -> router.goToScreen(destination)
         }

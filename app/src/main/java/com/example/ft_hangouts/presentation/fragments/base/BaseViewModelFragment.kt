@@ -66,7 +66,7 @@ abstract class BaseViewModelFragment<
     }
 
     private fun setupObservers() {
-        viewModel.actionUpdated.observe(viewLifecycleOwner, Observer(this::goToScreen))
+        viewModel.actionUpdated.observe(viewLifecycleOwner, Observer(this::navigateTo))
         viewModel.modelUpdated.observe(viewLifecycleOwner, Observer(this::updateScreen))
     }
 
@@ -80,7 +80,7 @@ abstract class BaseViewModelFragment<
             .addCallback(viewLifecycleOwner, onBackPressedCallback)
     }
 
-    abstract fun goToScreen(destination: FromScreen)
+    abstract fun navigateTo(destination: FromScreen)
 //
 //    protected fun navigate(@IdRes navigateToId: Int, arguments: Bundle? = null) =
 //        findNavController().navigate(navigateToId, arguments)

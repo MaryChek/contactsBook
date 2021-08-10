@@ -24,11 +24,21 @@ class ContactEditorViewModel(
     private fun updateModel(
         contactId: String? = model.contact?.id,
         personName: String? = model.contact?.name,
+        personLastName: String? = model.contact?.lastName,
         personNumber: String? = model.contact?.number,
+        personEmail: String? = model.contact?.email,
+        imagePath: String? = model.contact?.imagePath,
         isNumberIndividual: Boolean? = model.isNumberIndividual,
     ) {
         if (contactId != null) {
-            val contact = Contact(contactId, personName, personNumber)
+            val contact = Contact(
+                id = contactId,
+                name = personName,
+                lastName = personLastName,
+                number = personNumber,
+                email = personEmail,
+                imagePath = imagePath
+            )
             model = ContactEditorState(contact, isNumberIndividual)
         } else {
             Log.e(logTag, "missing contact id", IllegalArgumentException())
@@ -47,25 +57,18 @@ class ContactEditorViewModel(
     override fun onContactCorrect() {
         val contact: Contact? = model.contact
         if (contact != null) {
-            if (removeContact(contact)) {
-                addNewContact(contact)
-                goToUpdatedDetailContact(contact)
-            }
+            removeContact(contact)
+            addNewContact(contact)
+            goToUpdatedDetailContact(contact)
         } else {
             Log.e(logTag, "missing contact", IllegalArgumentException())
         }
     }
 
-    private fun removeContact(contact: Contact): Boolean {
-        val success: Boolean =
-            contact.id?.let { contactId ->
-                interactor.removeContactById(contactId)
-            } ?: false
-
-        if (!success) {
-            Log.e(logTag, "remove contact is fail", IllegalStateException())
+    private fun removeContact(contact: Contact) {
+        contact.id?.let { contactId ->
+            interactor.removeContactById(contactId)
         }
-        return success
     }
 
     private fun addNewContact(contact: Contact) {

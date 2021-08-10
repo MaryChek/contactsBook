@@ -1,19 +1,19 @@
 package com.example.ft_hangouts.data.repository
 
+import com.example.ft_hangouts.data.room.database.DBContacts
 import com.example.ft_hangouts.domain.models.Contact
 
-class ContactRepository {
-    private val contactList: MutableList<Contact> = mutableListOf()
+class ContactRepository(private val dbContacts: DBContacts) {
 
     fun getAllContacts(): List<Contact> =
-        contactList
+        dbContacts.getAllContacts()
 
     fun addContact(contact: Contact) =
-        contactList.add(contact)
+        dbContacts.addContact(contact)
 
-    fun removeContact(contactId: Int) =
-        contactList.removeAt(contactId)
+    fun removeContact(contactId: String) =
+        dbContacts.removeContactById(contactId)
 
-    fun updateContactById(contact: Contact) {
-    }
+    fun updateContactById(contact: Contact) =
+        dbContacts.updateContact(contact)
 }

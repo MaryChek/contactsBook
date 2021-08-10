@@ -60,7 +60,7 @@ class ContactsBookFragment : BaseViewModelFragment<
     override fun getNavRouter(): ContactsBookRouter =
         ContactsBookRouter(navController)
 
-    override fun goToScreen(destination: FromContactsBook) {
+    override fun navigateTo(destination: FromContactsBook) {
         when (destination) {
             is FromContactsBook.Command.CloseActivity -> closeActivity()
             is FromContactsBook.Navigate -> router.goToScreen(destination)

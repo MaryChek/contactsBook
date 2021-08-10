@@ -7,23 +7,49 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.CallSuper
 import androidx.annotation.StringRes
 import com.example.ft_hangouts.databinding.FragmentContactEditorBinding
+import com.example.ft_hangouts.presentation.fragments.RegistrationActivityResult
 import com.example.ft_hangouts.presentation.models.ContactState
 import com.example.ft_hangouts.presentation.navigation.base.BaseNavigation
 import com.example.ft_hangouts.presentation.navigation.router.BaseRouter
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseContactEditorViewModel
 
 abstract class BaseContactEditorFragment<
-        Model: ContactState,
+        Model : ContactState,
         FromScreen : BaseNavigation,
-        Navigate: BaseNavigation.Navigate,
+        Navigate : BaseNavigation.Navigate,
         Router : BaseRouter<Navigate>,
-        ViewModel: BaseContactEditorViewModel<Model, FromScreen>>
-    : BaseViewModelFragment<Model, FromScreen, Navigate, Router, ViewModel>() {
+        ViewModel : BaseContactEditorViewModel<Model, FromScreen>>
+    : BaseViewModelFragment<Model, FromScreen, Navigate, Router, ViewModel>(),
+    RegistrationActivityResult {
 
     protected var binding: FragmentContactEditorBinding? = null
+
+    protected var requestPermissionForWriteStorageLauncher: ActivityResultLauncher<String>? = null
+    protected var requestPermissionForReadStorageLauncher: ActivityResultLauncher<String>? = null
+    protected var getContentLauncher: ActivityResultLauncher<String>? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initActivityResultLaunchers()
+    }
+
+    private fun initActivityResultLaunchers() {
+        requestPermissionForReadStorageLauncher = this.registerForRequestPermissionResult(
+            viewModel::onReadStoragePermissionIsGranted,
+            viewModel::onReadStoragePermissionIsNotGranted
+        )
+
+        requestPermissionForWriteStorageLauncher = this.registerForRequestPermissionResult(
+            viewModel::onWriteStoragePermissionIsGranted,
+            viewModel::onWriteStoragePermissionIsNotGranted
+        )
+
+        getContentLauncher = this.registerForGettingContentResult(viewModel::onTakePicture)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,5 +96,8 @@ abstract class BaseContactEditorFragment<
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+        requestPermissionForWriteStorageLauncher = null
+        requestPermissionForReadStorageLauncher = null
+        getContentLauncher = null
     }
 }
