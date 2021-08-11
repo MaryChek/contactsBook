@@ -13,37 +13,13 @@ import java.lang.IllegalArgumentException
 class ContactCreatorViewModel(
     private val interactor: ContactsInteractor,
     private val mapper: ContactMapper,
-) : BaseContactEditorViewModel<ContactState, FromContactCreator>(ContactState()) {
+) : BaseContactEditorViewModel<FromContactCreator>() {
 
-    private val logTag: String = this::class.java.simpleName
+    override val logTag: String = this::class.java.simpleName
 
     fun init() {
         val contactId: String = interactor.getNewContactIndex()
         updateModel(contactId)
-    }
-
-    private fun updateModel(
-        contactId: String? = model.contact?.id,
-        personName: String? = model.contact?.name,
-        personLastName: String? = model.contact?.lastName,
-        personNumber: String? = model.contact?.number,
-        personEmail: String? = model.contact?.email,
-        imagePath: String? = model.contact?.imagePath,
-        isNumberIndividual: Boolean? = model.isNumberIndividual,
-    ) {
-        if (contactId != null) {
-            val contact = Contact(
-                id = contactId,
-                name = personName,
-                lastName = personLastName,
-                number = personNumber,
-                email = personEmail,
-                imagePath = imagePath
-            )
-            model = ContactState(contact, isNumberIndividual)
-        } else {
-            Log.e(logTag, "missing contact id", IllegalArgumentException())
-        }
     }
 
     override fun onContactCorrect() {
@@ -54,14 +30,8 @@ class ContactCreatorViewModel(
         goToScreen(FromContactCreator.Command.AccessReadPermissions)
     }
 
-    override fun onNameSubmit(name: String) =
-        updateModel(personName = name)
-
-    override fun onNumberSubmit(number: String) {
-        val isNumberIndividual = interactor.isNumberIndividual(number)
-        updateModel(personNumber = number, isNumberIndividual = isNumberIndividual)
-    }
-
+    override fun isNumberIndividual(number: String): Boolean =
+        interactor.isNumberIndividual(number)
 
     override fun onReadStoragePermissionIsGranted() {
         goToScreen(FromContactCreator.Command.TakePictureFromGallery)

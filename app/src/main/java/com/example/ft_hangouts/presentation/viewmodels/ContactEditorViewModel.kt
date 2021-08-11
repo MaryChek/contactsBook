@@ -8,42 +8,16 @@ import com.example.ft_hangouts.domain.interactors.ContactsInteractor
 import com.example.ft_hangouts.presentation.mappers.ContactMapper
 import com.example.ft_hangouts.domain.models.Contact as DomainContact
 import com.example.ft_hangouts.presentation.models.Contact
-import com.example.ft_hangouts.presentation.models.ContactEditorState
 import com.example.ft_hangouts.presentation.navigation.FromContactEditor
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseContactEditorViewModel
 import java.lang.IllegalArgumentException
-import java.lang.IllegalStateException
 
 class ContactEditorViewModel(
     private val interactor: ContactsInteractor,
     private val mapper: ContactMapper,
-) : BaseContactEditorViewModel<ContactEditorState, FromContactEditor>(ContactEditorState()) {
+) : BaseContactEditorViewModel<FromContactEditor>() {
 
-    private val logTag: String = this::class.java.simpleName
-
-    private fun updateModel(
-        contactId: String? = model.contact?.id,
-        personName: String? = model.contact?.name,
-        personLastName: String? = model.contact?.lastName,
-        personNumber: String? = model.contact?.number,
-        personEmail: String? = model.contact?.email,
-        imagePath: String? = model.contact?.imagePath,
-        isNumberIndividual: Boolean? = model.isNumberIndividual,
-    ) {
-        if (contactId != null) {
-            val contact = Contact(
-                id = contactId,
-                name = personName,
-                lastName = personLastName,
-                number = personNumber,
-                email = personEmail,
-                imagePath = imagePath
-            )
-            model = ContactEditorState(contact, isNumberIndividual)
-        } else {
-            Log.e(logTag, "missing contact id", IllegalArgumentException())
-        }
-    }
+    override val logTag: String = this::class.java.simpleName
 
     fun init(contact: Contact) {
         updateModel(
@@ -84,17 +58,10 @@ class ContactEditorViewModel(
             )
         )
 
-    override fun onAddPhotoClick() {
+    override fun onAddPhotoClick() {}
 
-    }
-
-    override fun onNameSubmit(name: String) =
-        updateModel(personName = name)
-
-    override fun onNumberSubmit(number: String) {
-        val isNumberIndividual = interactor.isNumberIndividual(number, unlessId = model.contact?.id)
-        updateModel(personNumber = number, isNumberIndividual = isNumberIndividual)
-    }
+    override fun isNumberIndividual(number: String): Boolean =
+        interactor.isNumberIndividual(number, unlessId = model.contact?.id)
 
     override fun showMessageError() =
         goToScreen(FromContactEditor.Command.ShowErrorMessage(model.errorMessageResId))

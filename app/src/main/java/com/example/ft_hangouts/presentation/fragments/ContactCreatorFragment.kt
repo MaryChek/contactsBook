@@ -16,7 +16,7 @@ import com.example.ft_hangouts.presentation.viewmodels.ContactCreatorViewModel
 import java.lang.IllegalStateException
 
 class ContactCreatorFragment : BaseContactEditorFragment<
-        ContactState, FromContactCreator, FromContactCreator.Navigate,
+        FromContactCreator, FromContactCreator.Navigate,
         ContactCreatorRouter, ContactCreatorViewModel>(), RegistrationActivityResult {
 
     private val logTag: String = this::class.java.simpleName

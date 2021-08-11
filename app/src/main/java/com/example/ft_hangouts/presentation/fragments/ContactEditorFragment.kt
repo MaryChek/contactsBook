@@ -5,30 +5,30 @@ import android.util.Log
 import android.view.View
 import com.example.ft_hangouts.presentation.fragments.base.BaseContactEditorFragment
 import com.example.ft_hangouts.presentation.models.Contact
-import com.example.ft_hangouts.presentation.models.ContactEditorState
+import com.example.ft_hangouts.presentation.models.ContactState
 import com.example.ft_hangouts.presentation.navigation.FromContactEditor
 import com.example.ft_hangouts.presentation.navigation.router.ContactEditorRouter
 import com.example.ft_hangouts.presentation.viewmodels.ContactEditorViewModel
 
 class ContactEditorFragment : BaseContactEditorFragment<
-            ContactEditorState, FromContactEditor, FromContactEditor.Navigate,
+        FromContactEditor, FromContactEditor.Navigate,
         ContactEditorRouter, ContactEditorViewModel>() {
 
     private val logTag: String = this::class.java.simpleName
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val contact: Contact? =
-            arguments?.getSerializable(Contact::class.java.simpleName) as Contact?
-        if (contact != null) {
-            init(contact)
-        } else {
-            Log.e(logTag, "Missing Contact")
-        }
+        init()
     }
 
-    private fun init(contact: Contact) =
-        viewModel.init(contact)
+    private fun init() {
+        val contact: Contact? =
+            arguments?.getSerializable(Contact::class.java.simpleName) as Contact?
+
+        contact?.let {
+            viewModel.init(contact)
+        } ?: Log.e(logTag, "Missing Contact")
+    }
 
     override fun getViewModelClass(): Class<ContactEditorViewModel> =
         ContactEditorViewModel::class.java
@@ -44,8 +44,11 @@ class ContactEditorFragment : BaseContactEditorFragment<
                 router.goToScreen(destination)
         }
 
-    override fun updateScreen(model: ContactEditorState) {
+    override fun updateScreen(model: ContactState) {
         binding?.edtName?.setText(model.contact?.name)
         binding?.edtNumber?.setText(model.contact?.number)
+        binding?.edtLastName?.setText(model.contact?.lastName)
+        binding?.edtEmail?.setText(model.contact?.email)
     }
 }
+

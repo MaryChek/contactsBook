@@ -4,18 +4,20 @@ import android.os.Bundle
 import androidx.core.os.bundleOf
 import com.example.ft_hangouts.R
 import com.example.ft_hangouts.presentation.models.Contact
+import com.example.ft_hangouts.presentation.models.ContactDetailState
 import com.example.ft_hangouts.presentation.navigation.FromContactDetails
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseViewModel
 
 class ContactDetailsViewModel
-    : BaseViewModel<Contact, FromContactDetails>(Contact()) {
+    : BaseViewModel<ContactDetailState, FromContactDetails>(ContactDetailState(Contact())) {
 
     fun init(contact: Contact) {
-        updateModel(contact)
+        val contactState = ContactDetailState(contact)
+        updateModel(contactState)
     }
 
-    private fun updateModel(contact: Contact) {
-        model = contact
+    private fun updateModel(contactState: ContactDetailState) {
+        model = contactState
         updateScreen()
     }
 

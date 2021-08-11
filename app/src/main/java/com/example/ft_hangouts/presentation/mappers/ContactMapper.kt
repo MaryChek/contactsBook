@@ -6,9 +6,23 @@ import com.example.ft_hangouts.domain.models.Contact as DomainContact
 class ContactMapper {
     fun mapContacts(contacts: List<DomainContact>): List<Contact> =
         contacts.map { contact ->
-            Contact(contact.id, contact.name, contact.number)
+            Contact(
+                contact.id,
+                contact.name,
+                contact.lastName,
+                contact.number,
+                contact.email,
+                contact.imagePath,
+            )
         }
 
     fun mapContact(contact: Contact): DomainContact =
-        DomainContact(contact.id, contact.name, contact.number)
+        DomainContact(
+            contact.id,
+            contact.name,
+            contact.lastName,
+            contact.number,
+            contact.email,
+            contact.imagePath,
+        )
 }

@@ -30,6 +30,7 @@
             android:id="@+id/edtName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
             android:hint="@string/created_name_hint"
             android:inputType="text|textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -46,6 +47,7 @@
             android:id="@+id/edtLastName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
             android:hint="@string/created_last_name_hint"
             android:inputType="text|textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -62,6 +64,7 @@
             android:id="@+id/edtNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
             android:hint="@string/created_number_hint"
             android:inputType="text|number" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -78,6 +81,7 @@
             android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
             android:hint="@string/created_email_hint"
             android:imeOptions="actionDone"
             android:inputType="text|textEmailAddress"

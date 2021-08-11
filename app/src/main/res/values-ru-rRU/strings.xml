@@ -11,4 +11,5 @@
     <string name="invalid_number_error_message">Такой номер уже существует</string>
     <string name="created_last_name_hint">Фамилия</string>
     <string name="created_email_hint">Почта</string>
+    <string name="empty_number_error_message">Поле номера не может быть пустым</string>
 </resources>

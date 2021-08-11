@@ -37,6 +37,19 @@
         app:layout_constraintTop_toBottomOf="@+id/tvPersonName"
         tools:text="8-915-36-82-407" />
 
+    <TextView
+        android:id="@+id/tvPersonEmail"
+        style="@style/TitleTextStyle"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPersonNumber"
+        tools:text="mashekmf-2010"
+        tools:visibility="visible"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/buttonEditContact"
         android:layout_width="wrap_content"

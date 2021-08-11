@@ -18,12 +18,11 @@ import com.example.ft_hangouts.presentation.navigation.router.BaseRouter
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseContactEditorViewModel
 
 abstract class BaseContactEditorFragment<
-        Model : ContactState,
         FromScreen : BaseNavigation,
         Navigate : BaseNavigation.Navigate,
         Router : BaseRouter<Navigate>,
-        ViewModel : BaseContactEditorViewModel<Model, FromScreen>>
-    : BaseViewModelFragment<Model, FromScreen, Navigate, Router, ViewModel>(),
+        ViewModel : BaseContactEditorViewModel<FromScreen>>
+    : BaseViewModelFragment<ContactState, FromScreen, Navigate, Router, ViewModel>(),
     RegistrationActivityResult {
 
     protected var binding: FragmentContactEditorBinding? = null
@@ -67,13 +66,25 @@ abstract class BaseContactEditorFragment<
     }
 
     private fun initButtonClickListeners() {
-        binding?.buttonSave?.setOnClickListener { viewModel.onSaveContactClick() }
+        binding?.buttonSave?.setOnClickListener {
+            clearEditTextsFocus()
+            viewModel.onSaveContactClick()
+        }
         binding?.buttonAddPhoto?.setOnClickListener { viewModel.onAddPhotoClick() }
+    }
+
+    private fun clearEditTextsFocus() {
+        binding?.edtName?.clearFocus()
+        binding?.edtLastName?.clearFocus()
+        binding?.edtNumber?.clearFocus()
+        binding?.edtEmail?.clearFocus()
     }
 
     private fun initEditTextSubmitListeners() {
         binding?.edtName?.setOnTextSubmitListener(viewModel::onNameSubmit)
+        binding?.edtLastName?.setOnTextSubmitListener(viewModel::onLastNameSubmit)
         binding?.edtNumber?.setOnTextSubmitListener(viewModel::onNumberSubmit)
+        binding?.edtEmail?.setOnTextSubmitListener(viewModel::onEmailSubmit)
     }
 
     private fun EditText.setOnTextSubmitListener(onTextSubmitCallback: (String) -> Unit) {
