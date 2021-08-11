@@ -23,7 +23,10 @@ class ContactEditorViewModel(
         updateModel(
             contactId = contact.id,
             personName = contact.name,
-            personNumber = contact.number
+            personLastName = contact.lastName,
+            personNumber = contact.number,
+            personEmail = contact.email,
+            imagePath = contact.imagePath,
         )
         updateScreen()
     }

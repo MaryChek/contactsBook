@@ -19,7 +19,7 @@ abstract class BaseContactEditorViewModel<FromScreen : BaseNavigation> :
         personNumber: String? = model.contact?.number,
         personEmail: String? = model.contact?.email,
         imagePath: String? = model.contact?.imagePath,
-        isNumberIndividual: Boolean? = model.isNumberIndividual,
+        isNumberIndividual: Boolean = model.isNumberIndividual,
     ) {
         if (contactId != null) {
             val contact = Contact(
