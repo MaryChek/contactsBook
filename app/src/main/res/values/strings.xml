@@ -12,4 +12,7 @@
     <string name="created_last_name_hint">Last name</string>
     <string name="created_email_hint">Email</string>
     <string name="empty_number_error_message">The number field must not be empty</string>
+    <string name="name">Name: </string>
+    <string name="number">Number: </string>
+    <string name="email">Email: </string>
 </resources>

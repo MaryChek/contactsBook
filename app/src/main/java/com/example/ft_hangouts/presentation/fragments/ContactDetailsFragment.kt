@@ -68,5 +68,6 @@ class ContactDetailsFragment : BaseViewModelFragment<
         binding?.tvPersonEmail?.text = model.email
 
         binding?.tvPersonEmail?.isVisible = model.isEmailVisible
+        binding?.tvEmail?.isVisible = model.isEmailVisible
     }
 }
