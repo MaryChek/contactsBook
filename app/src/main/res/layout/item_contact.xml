@@ -38,15 +38,31 @@
         app:layout_constraintStart_toEndOf="@+id/imgPerson"
         tools:text="85" />
 
-    <ImageView
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/buttonGoToChat"
-        android:layout_width="30dp"
-        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        android:clickable="true"
-        android:focusable="true"
+        app:backgroundTint="@color/white"
+        app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_message" />
+        app:maxImageSize="31dp"
+        app:srcCompat="@drawable/ic_message"
+        app:tint="@color/colorPrimary" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/buttonCallToContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foregroundGravity="center"
+        app:backgroundTint="@color/white"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonGoToChat"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxImageSize="30dp"
+        app:srcCompat="@drawable/ic_phone_call"
+        app:tint="@color/colorPrimary" />
 </androidx.constraintlayout.widget.ConstraintLayout>
