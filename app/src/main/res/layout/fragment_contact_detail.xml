@@ -32,9 +32,8 @@
         style="@style/TitleTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        app:layout_constraintStart_toEndOf="@id/tvName"
+        app:layout_constraintStart_toStartOf="@+id/imgPerson"
         app:layout_constraintTop_toBottomOf="@+id/imgPerson"
         tools:text="PersonName" />
 
@@ -55,9 +54,8 @@
         style="@style/TitleTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        app:layout_constraintStart_toEndOf="@id/tvNumber"
+        app:layout_constraintStart_toStartOf="@+id/tvPersonFullName"
         app:layout_constraintTop_toBottomOf="@+id/tvPersonFullName"
         tools:text="8-915-36-82-407" />
 
@@ -78,14 +76,15 @@
     <TextView
         android:id="@+id/tvPersonEmail"
         style="@style/TitleTextStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
         android:visibility="gone"
-        app:layout_constraintStart_toEndOf="@id/tvEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvPersonFullName"
         app:layout_constraintTop_toBottomOf="@+id/tvPersonNumber"
-        tools:text="mashekmf-2010"
+        tools:text="mashekmf-2010@mail.ru"
         tools:visibility="visible" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
