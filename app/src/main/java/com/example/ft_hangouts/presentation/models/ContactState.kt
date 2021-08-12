@@ -8,9 +8,12 @@ class ContactState(
     val isNumberIndividual: Boolean = true
 ) {
     private val isNameNotEmpty: Boolean = contact?.name?.isNotBlank() == true
+    private val isNumberNotEmpty: Boolean = contact?.number?.isNotBlank() == true
 
-    val isContactCorrect: Boolean = contact != null && isNameNotEmpty && isNumberIndividual
-//    val isErrorMassageVisible: Boolean = contact != null && !isCreateSuccess
+    val isContactCorrect: Boolean =
+        contact != null && isNameNotEmpty && isNumberNotEmpty && isNumberIndividual
+
+    val hesImage: Boolean = contact?.imagePath != null
 
     @StringRes
     val errorMessageResId: Int = when {

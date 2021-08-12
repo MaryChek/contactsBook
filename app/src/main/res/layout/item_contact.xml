@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/ic_contacts" />
 
     <TextView
-        android:id="@+id/tvPersonName"
+        android:id="@+id/tvPersonFullName"
         style="@style/TitleTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

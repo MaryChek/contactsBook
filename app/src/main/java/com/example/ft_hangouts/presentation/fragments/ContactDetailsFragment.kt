@@ -63,7 +63,7 @@ class ContactDetailsFragment : BaseViewModelFragment<
         }
 
     override fun updateScreen(model: ContactDetailState) {
-        binding?.tvPersonName?.text = model.fullName
+        binding?.tvPersonFullName?.text = model.fullName
         binding?.tvPersonNumber?.text = model.number
         binding?.tvPersonEmail?.text = model.email
 

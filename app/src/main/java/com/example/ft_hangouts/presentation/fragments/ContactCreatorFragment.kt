@@ -60,20 +60,6 @@ class ContactCreatorFragment : BaseContactEditorFragment<
             )
         } ?: Log.e(logTag, "permission for read launcher not init", IllegalStateException())
     }
-//        accessPermission(
-//            Manifest.permission.READ_EXTERNAL_STORAGE,
-//            viewModel::onReadStoragePermissionIsGranted,
-//            viewModel::onReadStoragePermissionIsNotGranted
-//        )
-//        if (isPermissionDenied(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-//            startPermissionRequest(
-//                this,
-//                Manifest.permission.READ_EXTERNAL_STORAGE,
-//                viewModel::onReadStoragePermissionIsGranted,
-//                viewModel::onReadStoragePermissionIsNotGranted
-//            )
-//        }
-//    }
 
     private fun accessWritePermissions() {
         requestPermissionForWriteStorageLauncher?.let { launcher ->
@@ -84,16 +70,6 @@ class ContactCreatorFragment : BaseContactEditorFragment<
             )
         } ?: Log.e(logTag, "permission for write launcher not init", IllegalStateException())
     }
-
-//        if (isPermissionDenied(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-//            startPermissionRequest(
-//                this,
-//                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//                viewModel::onWriteStoragePermissionIsGranted,
-//                viewModel::onWriteStoragePermissionIsNotGranted
-//            )
-//        }
-//    }
 
     private fun accessPermission(
         permissionLauncher: ActivityResultLauncher<String>,

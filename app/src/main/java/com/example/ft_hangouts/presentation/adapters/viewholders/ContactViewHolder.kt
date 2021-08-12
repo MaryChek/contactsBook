@@ -13,7 +13,7 @@ class ContactViewHolder(private val binding: ItemContactBinding) :
         imgPersonClickListener: (Contact) -> Unit
     ) {
         binding.apply {
-            tvPersonName.text = contact.fullName // TODO rename to tvPersonFullName
+            tvPersonFullName.text = contact.fullName
             tvPersonNumber.text = contact.number
             buttonGoToChat.setOnClickListener {
                 chatIconClickListener(contact)

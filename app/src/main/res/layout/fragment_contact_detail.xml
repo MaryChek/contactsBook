@@ -23,12 +23,12 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:text="@string/name"
-        app:layout_constraintBottom_toBottomOf="@+id/tvPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPersonFullName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgPerson" />
 
     <TextView
-        android:id="@+id/tvPersonName"
+        android:id="@+id/tvPersonFullName"
         style="@style/TitleTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
         android:text="@string/number"
         app:layout_constraintBottom_toBottomOf="@+id/tvPersonNumber"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPersonFullName" />
 
     <TextView
         android:id="@+id/tvPersonNumber"
@@ -58,7 +58,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         app:layout_constraintStart_toEndOf="@id/tvNumber"
-        app:layout_constraintTop_toBottomOf="@+id/tvPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/tvPersonFullName"
         tools:text="8-915-36-82-407" />
 
     <TextView

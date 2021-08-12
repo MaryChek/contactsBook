@@ -4,11 +4,8 @@ import android.net.Uri
 import android.util.Log
 import com.example.ft_hangouts.domain.interactors.ContactsInteractor
 import com.example.ft_hangouts.presentation.mappers.ContactMapper
-import com.example.ft_hangouts.presentation.models.Contact
-import com.example.ft_hangouts.presentation.models.ContactState
 import com.example.ft_hangouts.presentation.navigation.FromContactCreator
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseContactEditorViewModel
-import java.lang.IllegalArgumentException
 
 class ContactCreatorViewModel(
     private val interactor: ContactsInteractor,
@@ -23,7 +20,17 @@ class ContactCreatorViewModel(
     }
 
     override fun onContactCorrect() {
-        goToScreen(FromContactCreator.Command.AccessWritePermissions)
+        if (model.hesImage) {
+            goToScreen(FromContactCreator.Command.AccessWritePermissions)
+        }
+        saveContact()
+    }
+
+    private fun saveContact() {
+        model.contact?.let { contact ->
+            interactor.addContact(mapper.mapContact(contact))
+        }
+        goToPrevious()
     }
 
     override fun onAddPhotoClick() {
@@ -38,7 +45,7 @@ class ContactCreatorViewModel(
     }
 
     override fun onTakePicture(imageUri: Uri) {
-        Log.v("IMAGE", imageUri.toString())
+        Log.v("IMAGE", imageUri.toString()) // TODO add picture to imageView
     }
 
     override fun onReadStoragePermissionIsNotGranted() {
@@ -46,10 +53,7 @@ class ContactCreatorViewModel(
     }
 
     override fun onWriteStoragePermissionIsGranted() {
-        model.contact?.let { contact ->
-            interactor.addContact(mapper.mapContact(contact))
-        }
-        goToPrevious()
+        //TODO save image
     }
 
     override fun onWriteStoragePermissionIsNotGranted() {
