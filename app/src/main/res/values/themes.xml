@@ -42,4 +42,8 @@
     <style name="TextView.Normal.Names" parent="TextView.Normal">
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
+
+    <style name="TextView.Normal.Message" parent="TextView.Normal">
+        <item name="android:lineSpacingExtra">5dp</item>
+    </style>
 </resources>

@@ -19,7 +19,7 @@ class ContactViewModelFactory(
         when (modelClass) {
             ContactsBookViewModel::class.java -> ContactsBookViewModel(interactor, ContactMapper()) as T
             ContactCreatorViewModel::class.java -> ContactCreatorViewModel(interactor, ContactMapper()) as T
-            ContactDetailsViewModel::class.java -> ContactDetailsViewModel() as T
+            ContactDetailsViewModel::class.java -> ContactDetailsViewModel(interactor) as T
             ContactEditorViewModel::class.java -> ContactEditorViewModel(interactor, ContactMapper()) as T
             else -> throw IllegalArgumentException("Factory cannot make ViewModel of type ${modelClass.simpleName}")
         }

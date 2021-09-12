@@ -15,4 +15,9 @@
     <string name="name">Name: </string>
     <string name="number">Number: </string>
     <string name="email">Email: </string>
+    <string name="delete_contact">Delete contact</string>
+    <string name="should_delete_the_contact">Are you sure you want to delete a contact? It will no longer be possible to cancel this action</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="chat_input">Enter text</string>
 </resources>

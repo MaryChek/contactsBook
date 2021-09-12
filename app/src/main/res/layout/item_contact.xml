@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="5dp">
+    android:paddingBottom="15dp">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgPerson"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="15dp"
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,12 +57,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:foregroundGravity="center"
+        android:src="@drawable/ic_phone_call"
         app:backgroundTint="@color/white"
         app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonGoToChat"
         app:layout_constraintTop_toTopOf="parent"
         app:maxImageSize="30dp"
-        app:srcCompat="@drawable/ic_phone_call"
         app:tint="@color/colorPrimary" />
 </androidx.constraintlayout.widget.ConstraintLayout>

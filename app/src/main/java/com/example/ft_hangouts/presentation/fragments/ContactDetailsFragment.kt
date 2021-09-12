@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.example.ft_hangouts.databinding.FragmentContactDetailBinding
+import com.example.ft_hangouts.presentation.dialog.DialogCreator
 import com.example.ft_hangouts.presentation.fragments.base.BaseViewModelFragment
 import com.example.ft_hangouts.presentation.models.Contact
 import com.example.ft_hangouts.presentation.models.ContactDetailState
@@ -19,6 +20,7 @@ class ContactDetailsFragment : BaseViewModelFragment<
         ContactDetailsRouter, ContactDetailsViewModel>() {
 
     private var binding: FragmentContactDetailBinding? = null
+    private var dialog: DialogCreator? = null
 
     private val logTag: String = this::class.java.simpleName
 
@@ -45,10 +47,12 @@ class ContactDetailsFragment : BaseViewModelFragment<
     private fun init(contact: Contact) {
         viewModel.init(contact)
         initButtonEditContactClickListener()
+        dialog = DialogCreator()
     }
 
     private fun initButtonEditContactClickListener() {
         binding?.buttonEditContact?.setOnClickListener { viewModel.onEditContactClick() }
+        binding?.buttonDelete?.setOnClickListener { viewModel.onDeleteContactClick() }
     }
 
     override fun getViewModelClass(): Class<ContactDetailsViewModel> =
@@ -59,8 +63,16 @@ class ContactDetailsFragment : BaseViewModelFragment<
 
     override fun navigateTo(destination: FromContactDetails) =
         when (destination) {
+            is FromContactDetails.Command.OpenDeleteContactDialog ->
+                openDeleteContactDialog(destination.contactId)
             is FromContactDetails.Navigate -> router.goToScreen(destination)
         }
+
+    private fun openDeleteContactDialog(contactId: String) {
+        activity?.let { activity ->
+            dialog?.showDeleteContactDialog(activity, viewModel::onContactDeletionConfirmed, contactId)
+        }
+    }
 
     override fun updateScreen(model: ContactDetailState) {
         binding?.tvPersonFullName?.text = model.fullName
@@ -69,5 +81,10 @@ class ContactDetailsFragment : BaseViewModelFragment<
 
         binding?.tvPersonEmail?.isVisible = model.isEmailVisible
         binding?.tvEmail?.isVisible = model.isEmailVisible
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        dialog?.onDestroy()
     }
 }

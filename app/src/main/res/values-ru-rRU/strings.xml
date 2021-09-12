@@ -15,4 +15,9 @@
     <string name="name">Имя: </string>
     <string name="number">Номер: </string>
     <string name="email">Почта: </string>
+    <string name="delete_contact">Удаление контакта</string>
+    <string name="should_delete_the_contact">Вы точно хотите удалить контакт? Отменить это действие будет уже невозможно</string>
+    <string name="delete">Удалить</string>
+    <string name="cancel">Отмена</string>
+    <string name="chat_input">Введите техт</string>
 </resources>

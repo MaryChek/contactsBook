@@ -11,4 +11,8 @@ sealed class FromContactDetails : BaseNavigation {
 
         class ContactEditor(@IdRes val navigateToId: Int, val contact: Bundle?) : Navigate()
     }
+
+    sealed class Command : BaseNavigation.Command, FromContactDetails() {
+        class OpenDeleteContactDialog(val contactId: String) : Command()
+    }
 }

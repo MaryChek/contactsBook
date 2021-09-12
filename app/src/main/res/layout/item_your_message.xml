@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="150dp"
+        app:cardBackgroundColor="@color/purple_200"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/messageText"
+            style="@style/TextView.Normal.Message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            tools:text=" aflebnklebfna;ebfman;dfmb abdfbnklaebn; vklbnvkzdnmb;klz" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cardView"
+        tools:text="12.12.12 12:12" />
+</androidx.constraintlayout.widget.ConstraintLayout>

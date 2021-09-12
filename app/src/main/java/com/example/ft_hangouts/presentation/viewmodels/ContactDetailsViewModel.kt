@@ -1,15 +1,19 @@
 package com.example.ft_hangouts.presentation.viewmodels
 
 import android.os.Bundle
+import android.util.Log
 import androidx.core.os.bundleOf
 import com.example.ft_hangouts.R
+import com.example.ft_hangouts.domain.interactors.ContactsInteractor
 import com.example.ft_hangouts.presentation.models.Contact
 import com.example.ft_hangouts.presentation.models.ContactDetailState
 import com.example.ft_hangouts.presentation.navigation.FromContactDetails
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseViewModel
 
-class ContactDetailsViewModel
+class ContactDetailsViewModel(private val interactor: ContactsInteractor)
     : BaseViewModel<ContactDetailState, FromContactDetails>(ContactDetailState(Contact())) {
+
+    val logTag: String = ContactDetailsViewModel::class.java.simpleName
 
     fun init(contact: Contact) {
         val contactState = ContactDetailState(contact)
@@ -31,6 +35,16 @@ class ContactDetailsViewModel
                 getBundleForContactModel(model)
             )
         )
+    }
+
+    fun onDeleteContactClick() =
+        model.id?.let { contactId ->
+            goToScreen(FromContactDetails.Command.OpenDeleteContactDialog(contactId))
+        } ?: Log.e(logTag, "missing contact id")
+
+    fun onContactDeletionConfirmed(contactId: String) {
+        interactor.removeContactById(contactId)
+        goToPrevious()
     }
 
     private fun getBundleForContactModel(contact: Contact): Bundle =
