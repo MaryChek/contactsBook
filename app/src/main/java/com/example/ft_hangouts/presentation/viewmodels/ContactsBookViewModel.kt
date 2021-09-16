@@ -32,13 +32,13 @@ class ContactsBookViewModel(
             )
         )
 
-    fun onIconChatClick(contact: Contact) {}
-//        goToScreen(
-//            FromContactsBook.Navigate.Chat(
-//                R.id.open_ContactChatFragment,
-//                getBundleForContactModel(contact)
-//            )
-//        )
+    fun onIconChatClick(contact: Contact) =
+        goToScreen(
+            FromContactsBook.Navigate.Chat(
+                R.id.open_ContactChatFragment,
+                getBundleForContactModel(contact)
+            )
+        )
 
     fun onImgContactClick(contact: Contact) =
         goToScreen(

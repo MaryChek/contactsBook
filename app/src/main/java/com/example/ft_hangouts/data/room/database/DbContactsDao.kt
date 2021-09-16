@@ -2,7 +2,7 @@ package com.example.ft_hangouts.data.room.database
 
 import com.example.ft_hangouts.domain.models.Contact
 
-interface DbDao {
+interface DbContactsDao {
     fun getAllContacts(): List<Contact>
 
     fun addContact(contact: Contact)

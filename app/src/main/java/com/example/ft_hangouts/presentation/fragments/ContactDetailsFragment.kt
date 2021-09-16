@@ -35,22 +35,22 @@ class ContactDetailsFragment : BaseViewModelFragment<
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
+        initButtonClickListener()
+        dialog = DialogCreator()
+    }
+
+    private fun init() {
         val contact: Contact? =
             arguments?.getSerializable(Contact::class.java.simpleName) as Contact?
         if (contact != null) {
-            init(contact)
+            viewModel.init(contact)
         } else {
             Log.e(logTag, "Missing Contact")
         }
     }
 
-    private fun init(contact: Contact) {
-        viewModel.init(contact)
-        initButtonEditContactClickListener()
-        dialog = DialogCreator()
-    }
-
-    private fun initButtonEditContactClickListener() {
+    private fun initButtonClickListener() {
         binding?.buttonEditContact?.setOnClickListener { viewModel.onEditContactClick() }
         binding?.buttonDelete?.setOnClickListener { viewModel.onDeleteContactClick() }
     }

@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.CallSuper
@@ -22,7 +20,7 @@ abstract class BaseContactEditorFragment<
         Navigate : BaseNavigation.Navigate,
         Router : BaseRouter<Navigate>,
         ViewModel : BaseContactEditorViewModel<FromScreen>>
-    : BaseViewModelFragment<ContactState, FromScreen, Navigate, Router, ViewModel>(),
+    : BaseContactWithEditTextFragment<ContactState, FromScreen, Navigate, Router, ViewModel>(),
     RegistrationActivityResult {
 
     protected var binding: FragmentContactEditorBinding? = null
@@ -85,18 +83,6 @@ abstract class BaseContactEditorFragment<
         binding?.edtLastName?.setOnTextSubmitListener(viewModel::onLastNameSubmit)
         binding?.edtNumber?.setOnTextSubmitListener(viewModel::onNumberSubmit)
         binding?.edtEmail?.setOnTextSubmitListener(viewModel::onEmailSubmit)
-    }
-
-    private fun EditText.setOnTextSubmitListener(onTextSubmitCallback: (String) -> Unit) {
-        setOnEditorActionListener(TextView.OnEditorActionListener { _, _, _ ->
-            onTextSubmitCallback(this.text.toString())
-            return@OnEditorActionListener false
-        })
-        setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                onTextSubmitCallback(this.text.toString())
-            }
-        }
     }
 
     protected fun showErrorMessage(@StringRes errorMessageResId: Int) {

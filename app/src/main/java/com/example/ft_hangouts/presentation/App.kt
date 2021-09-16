@@ -5,8 +5,10 @@ import android.database.sqlite.SQLiteDatabase
 import androidx.lifecycle.ViewModelProvider
 import com.example.ft_hangouts.data.repository.ContactRepository
 import com.example.ft_hangouts.data.room.database.DBContacts
+import com.example.ft_hangouts.data.room.database.DBMessages
 import com.example.ft_hangouts.data.room.helper.ContactDBHelper
 import com.example.ft_hangouts.domain.interactors.ContactsInteractor
+import com.example.ft_hangouts.domain.mappers.MessageMapper
 import com.example.ft_hangouts.presentation.mappers.ContactMapper
 import com.example.ft_hangouts.presentation.viewmodels.factory.ContactViewModelFactory
 
@@ -22,7 +24,8 @@ class App: Application() {
     private fun init() {
         val dbHelper = ContactDBHelper(applicationContext, DATABASE_NAME, DATABASE_VERSION)
         val dbContacts = DBContacts(dbHelper)
-        val repository = ContactRepository(dbContacts)
+        val dbMessages = DBMessages(dbHelper)
+        val repository = ContactRepository(dbContacts, dbMessages, MessageMapper())
         val interactor = ContactsInteractor(repository)
         viewModelFactory = ContactViewModelFactory(interactor)
     }

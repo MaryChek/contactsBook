@@ -34,23 +34,16 @@ class ContactEditorViewModel(
     override fun onContactCorrect() {
         val contact: Contact? = model.contact
         if (contact != null) {
-            removeContact(contact)
-            addNewContact(contact)
+            updateContact(contact)
             goToUpdatedDetailContact(contact)
         } else {
             Log.e(logTag, "missing contact", IllegalArgumentException())
         }
     }
 
-    private fun removeContact(contact: Contact) {
-        contact.id?.let { contactId ->
-            interactor.removeContactById(contactId)
-        }
-    }
-
-    private fun addNewContact(contact: Contact) {
+    private fun updateContact(contact: Contact) {
         val newContact: DomainContact = mapper.mapContact(contact)
-        interactor.addContact(newContact)
+        interactor.updateContact(newContact)
     }
 
     private fun goToUpdatedDetailContact(contact: Contact) =

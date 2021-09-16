@@ -1,41 +1,39 @@
 package com.example.ft_hangouts.data.room.database
 
 import android.content.ContentValues
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
 import com.example.ft_hangouts.data.room.helper.ContactDBHelper
 import com.example.ft_hangouts.data.room.model.ContactInformationContract.ContactEntry
+import com.example.ft_hangouts.domain.models.ChatMessage
 import com.example.ft_hangouts.domain.models.Contact
 
-class DBContacts(private val dbHelper: ContactDBHelper) : DbDao {
-    private val allUser: List<Contact>
-        get() {
-            val contacts = ArrayList<Contact>()
-            val selectQuery = "SELECT * FROM `${ContactEntry.TABLE_NAME}` " +
-                    "ORDER BY `${ContactEntry.COLUMN_FIRST_NAME}` ASC"
-            val db: SQLiteDatabase = dbHelper.writableDatabase
-            val cursor = db.rawQuery(selectQuery, null)
+class DBContacts(private val dbHelper: ContactDBHelper) : DbContactsDao {
 
-            while (cursor.moveToNext()) {
-                val id = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID))
-                val name = cursor.getString(cursor.getColumnIndex(ContactEntry.COLUMN_FIRST_NAME))
-                val lastName =
-                    cursor.getString(cursor.getColumnIndex(ContactEntry.COLUMN_LAST_NAME))
-                val number = cursor.getString(cursor.getColumnIndex(ContactEntry.COLUMN_NUMBER))
-                val email = cursor.getString(cursor.getColumnIndex(ContactEntry.COLUMN_EMAIL))
-                val image = cursor.getString(cursor.getColumnIndex(ContactEntry.COLUMN_IMAGE))
+    override fun getAllContacts(): List<Contact> {
+        val selectQuery = "SELECT * FROM `${ContactEntry.TABLE_NAME}` " +
+                "ORDER BY `${ContactEntry.COLUMN_FIRST_NAME}` ASC"
+        val db: SQLiteDatabase = dbHelper.writableDatabase
+        val cursor = db.rawQuery(selectQuery, null)
 
-                contacts.add(Contact(id.toString(), name, lastName, number, email, image))
-            }
-            cursor.close()
-            db.close()
+        val contacts = ArrayList<Contact>()
+        while (cursor.moveToNext()) {
+            val id: Int = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID))
+            val name: String =
+                cursor.getString(cursor.getColumnIndex(ContactEntry.COLUMN_FIRST_NAME))
+            val lastName: String? =
+                cursor.getString(cursor.getColumnIndex(ContactEntry.COLUMN_LAST_NAME))
+            val number: String = cursor.getString(cursor.getColumnIndex(ContactEntry.COLUMN_NUMBER))
+            val email: String? = cursor.getString(cursor.getColumnIndex(ContactEntry.COLUMN_EMAIL))
+            val image: String? = cursor.getString(cursor.getColumnIndex(ContactEntry.COLUMN_IMAGE))
 
-            return contacts
+            contacts.add(Contact(id.toString(), name, lastName, number, email, image))
         }
+        cursor.close()
+        db.close()
 
-    override fun getAllContacts(): List<Contact> =
-        allUser
+        return contacts
+    }
 
     override fun addContact(contact: Contact) {
         val db: SQLiteDatabase = dbHelper.writableDatabase
@@ -49,7 +47,7 @@ class DBContacts(private val dbHelper: ContactDBHelper) : DbDao {
     override fun removeContactById(contactId: String) {
         val db: SQLiteDatabase = dbHelper.writableDatabase
 
-        db.delete(ContactEntry.TABLE_NAME, "`${BaseColumns._ID}` = ?", arrayOf(contactId))
+        db.delete(ContactEntry.TABLE_NAME, "`${BaseColumns._ID}` = ?", arrayOf("60"))
         db.close()
     }
 

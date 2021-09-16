@@ -1,6 +1,7 @@
 package com.example.ft_hangouts.domain.interactors
 
 import com.example.ft_hangouts.data.repository.ContactRepository
+import com.example.ft_hangouts.domain.models.ChatMessage
 import com.example.ft_hangouts.domain.models.Contact
 
 class ContactsInteractor(private val repository: ContactRepository) {
@@ -24,5 +25,15 @@ class ContactsInteractor(private val repository: ContactRepository) {
         repository.addContact(contact)
 
     fun removeContactById(contactId: String) =
-        repository.removeContact(contactId)
+        repository.removeContactById(contactId)
+
+    fun updateContact(contact: Contact) =
+        repository.updateContact(contact)
+
+    fun getAllMessagesById(contactId: String): List<ChatMessage> =
+        repository.getAllMessagesById(contactId)
+
+    fun addMessageById(message: ChatMessage, contactId: String) {
+        repository.addMessageById(message, contactId)
+    }
 }
