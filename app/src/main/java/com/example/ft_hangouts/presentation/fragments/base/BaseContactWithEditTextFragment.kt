@@ -1,5 +1,7 @@
 package com.example.ft_hangouts.presentation.fragments.base
 
+import android.app.Activity
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import com.example.ft_hangouts.presentation.navigation.base.BaseNavigation
@@ -9,20 +11,39 @@ import com.example.ft_hangouts.presentation.viewmodels.base.BaseViewModel
 abstract class BaseContactWithEditTextFragment<
         Model : Any,
         FromScreen : BaseNavigation,
-        Navigate: BaseNavigation.Navigate,
+        Navigate : BaseNavigation.Navigate,
         Router : GoToScreen<Navigate>,
         ViewModel : BaseViewModel<Model, FromScreen>>
     : BaseViewModelFragment<Model, FromScreen, Navigate, Router, ViewModel>() {
 
-    protected fun EditText.setOnTextSubmitListener(onTextSubmitCallback: (String) -> Unit) {
-        setOnEditorActionListener(TextView.OnEditorActionListener { _, _, _ ->
-            onTextSubmitCallback(this.text.toString())
-            return@OnEditorActionListener false
-        })
-        setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
+    protected fun EditText.setOnTextSubmitListener(
+        onTextSubmitCallback: (String) -> Unit,
+        shouldDoBasicAction: Boolean = true,
+        enableAction: Boolean = true,
+        enableFocus: Boolean = true,
+    ) {
+        if (enableAction) {
+            setOnEditorActionListener(TextView.OnEditorActionListener { _, _, _ ->
                 onTextSubmitCallback(this.text.toString())
+                return@OnEditorActionListener !shouldDoBasicAction
+            })
+        }
+        if (enableFocus) {
+            setOnFocusChangeListener { _, hasFocus ->
+                if (!hasFocus) {
+                    onTextSubmitCallback(this.text.toString())
+                }
             }
         }
+    }
+
+    protected fun hideKeyboard() {
+        val inputManager: InputMethodManager? =
+            activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?
+        inputManager?.hideSoftInputFromWindow(activity?.currentFocus?.windowToken, 0)
+    }
+
+    companion object {
+
     }
 }

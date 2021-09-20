@@ -16,7 +16,16 @@ class ContactChatViewModel(
     BaseViewModel<ChatState, FromContactChat>(ChatState()) {
 
     private val logTag: String = this::class.java.simpleName
-    private var message: String? = null
+
+    fun init() {
+        interactor.setOnNewMessageCreatedListener(this::onNewMessageCreated)
+    }
+
+    private fun onNewMessageCreated(message: ChatMessage) {
+        val messages: MutableList<ChatMessage> = model.listMessage.toMutableList()
+        messages.add(message)
+        updateModel(messages = messages)
+    }
 
     private fun updateModel(
         contact: Contact? = model.contact,
@@ -39,12 +48,8 @@ class ContactChatViewModel(
         updateModel(contact, messages)
     }
 
-    fun onMessageSendClick() {
-        val currentMessage: String? = message
-        if (currentMessage?.isBlank() == true) {
-            sendMessage(currentMessage)
-        }
-    }
+    fun onMessageSendClick() =
+        goToScreen(FromContactChat.Command.ClearEditTextAndSetEditorAction)
 
     private fun sendMessage(currentMessage: String): Boolean {
         val chatMessage = ChatMessage(currentMessage)
@@ -60,7 +65,9 @@ class ContactChatViewModel(
     }
 
     fun onMessageSubmit(newMessage: String) {
-        message = newMessage
+        if (newMessage.isNotBlank()) {
+            sendMessage(newMessage)
+        }
     }
 
     override fun goToPrevious() =

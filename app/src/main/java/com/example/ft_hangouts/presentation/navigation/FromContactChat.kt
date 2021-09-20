@@ -7,4 +7,8 @@ sealed class FromContactChat: BaseNavigation {
     sealed class Navigate : BaseNavigation.Navigate, FromContactChat() {
         object PreviousScreen: Navigate()
     }
+
+    sealed class Command : BaseNavigation.Command, FromContactChat() {
+        object ClearEditTextAndSetEditorAction: Command()
+    }
 }

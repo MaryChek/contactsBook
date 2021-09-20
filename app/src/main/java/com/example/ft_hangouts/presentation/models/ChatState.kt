@@ -8,4 +8,5 @@ class ChatState (
 ) {
     val interlocutorId: String? = contact?.id
     val interlocutorName: String? = contact?.name ?: contact?.number
+    val rvScrollPosition: Int = listMessage.size
 }
