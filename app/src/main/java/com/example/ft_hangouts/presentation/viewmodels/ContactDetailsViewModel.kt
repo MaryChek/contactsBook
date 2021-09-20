@@ -8,6 +8,7 @@ import com.example.ft_hangouts.domain.interactors.ContactsInteractor
 import com.example.ft_hangouts.presentation.models.Contact
 import com.example.ft_hangouts.presentation.models.ContactDetailState
 import com.example.ft_hangouts.presentation.navigation.FromContactDetails
+import com.example.ft_hangouts.presentation.navigation.FromContactsBook
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseViewModel
 
 class ContactDetailsViewModel(private val interactor: ContactsInteractor)
@@ -36,6 +37,14 @@ class ContactDetailsViewModel(private val interactor: ContactsInteractor)
             )
         )
     }
+
+    fun onIconChatClick() =
+        goToScreen(
+            FromContactDetails.Navigate.Chat(
+                R.id.open_ContactChatFragment,
+                getBundleForContactModel(model)
+            )
+        )
 
     fun onDeleteContactClick() =
         model.id?.let { contactId ->

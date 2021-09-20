@@ -10,6 +10,8 @@ sealed class FromContactDetails : BaseNavigation {
         object PreviousScreen : Navigate()
 
         class ContactEditor(@IdRes val navigateToId: Int, val contact: Bundle?) : Navigate()
+
+        class Chat(val navigateToId: Int, val contact: Bundle?) : Navigate()
     }
 
     sealed class Command : BaseNavigation.Command, FromContactDetails() {

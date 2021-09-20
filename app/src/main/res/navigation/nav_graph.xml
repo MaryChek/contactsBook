@@ -39,6 +39,9 @@
         <action
             android:id="@+id/open_ContactEditorFragment"
             app:destination="@id/ContactEditorFragment" />
+        <action
+            android:id="@+id/open_ContactChatFragment"
+            app:destination="@id/ContactChatFragment" />
     </fragment>
 
     <fragment

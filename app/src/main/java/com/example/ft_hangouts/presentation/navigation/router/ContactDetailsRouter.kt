@@ -12,5 +12,7 @@ class ContactDetailsRouter(navController: NavController) :
                 navController.navigate(destination.navigateToId, destination.contact)
             is FromContactDetails.Navigate.PreviousScreen ->
                 goToPrevious()
+            is FromContactDetails.Navigate.Chat ->
+                navController.navigate(destination.navigateToId, destination.contact)
         }
 }

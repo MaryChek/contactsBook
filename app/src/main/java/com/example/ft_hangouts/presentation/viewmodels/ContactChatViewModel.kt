@@ -28,10 +28,11 @@ class ContactChatViewModel(
     }
 
     private fun updateModel(
+        currentMessage: String = model.currentMessage,
         contact: Contact? = model.contact,
         messages: List<ChatMessage> = model.listMessage,
     ) {
-        val chatState = ChatState(contact, messages)
+        val chatState = ChatState(currentMessage, contact, messages)
         model = chatState
         updateScreen()
     }
@@ -45,10 +46,17 @@ class ContactChatViewModel(
                 listOf()
             }
 
-        updateModel(contact, messages)
+        updateModel( contact = contact, messages = messages)
     }
 
-    fun onMessageSendClick() =
+    fun onMessageSendClick() {
+        clearMessageLine()
+        if (model.currentMessage.isNotBlank()) {
+            sendMessage(model.currentMessage)
+        }
+    }
+
+    private fun clearMessageLine() =
         goToScreen(FromContactChat.Command.ClearEditTextAndSetEditorAction)
 
     private fun sendMessage(currentMessage: String): Boolean {
@@ -64,11 +72,8 @@ class ContactChatViewModel(
         }
     }
 
-    fun onMessageSubmit(newMessage: String) {
-        if (newMessage.isNotBlank()) {
-            sendMessage(newMessage)
-        }
-    }
+    fun onMessageSubmit(newMessage: String) =
+        updateModel(currentMessage = newMessage)
 
     override fun goToPrevious() =
         goToScreen(FromContactChat.Navigate.PreviousScreen)

@@ -71,13 +71,15 @@ class ContactChatFragment : BaseContactWithEditTextFragment<
     }
 
     private fun initButtonClickListener() {
-        binding?.buttonSend?.setOnClickListener { viewModel.onMessageSendClick() }
+        binding?.buttonSend?.setOnClickListener {
+            viewModel.onMessageSendClick()
+        }
     }
 
     private fun initEditTextSubmitListeners() {
         binding?.input?.setOnTextSubmitListener(
             viewModel::onMessageSubmit,
-            shouldDoBasicAction = false
+            shouldDoBasicActionByActionId = { actionId -> actionId == EditorInfo.IME_ACTION_DONE }
         )
     }
 

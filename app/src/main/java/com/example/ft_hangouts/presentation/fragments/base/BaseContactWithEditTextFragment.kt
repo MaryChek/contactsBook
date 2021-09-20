@@ -1,6 +1,7 @@
 package com.example.ft_hangouts.presentation.fragments.base
 
 import android.app.Activity
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
@@ -18,16 +19,16 @@ abstract class BaseContactWithEditTextFragment<
 
     protected fun EditText.setOnTextSubmitListener(
         onTextSubmitCallback: (String) -> Unit,
-        shouldDoBasicAction: Boolean = true,
+        shouldDoBasicActionByActionId: ((Int) -> Boolean)? = null,
         enableAction: Boolean = true,
         enableFocus: Boolean = true,
     ) {
-        if (enableAction) {
-            setOnEditorActionListener(TextView.OnEditorActionListener { _, _, _ ->
+        if (enableAction) setOnEditorActionListener(
+            TextView.OnEditorActionListener { _, actionId, _ ->
                 onTextSubmitCallback(this.text.toString())
-                return@OnEditorActionListener !shouldDoBasicAction
-            })
-        }
+                return@OnEditorActionListener shouldDoBasicActionByActionId?.invoke(actionId)?.not() ?: false
+            },
+        )
         if (enableFocus) {
             setOnFocusChangeListener { _, hasFocus ->
                 if (!hasFocus) {
@@ -43,7 +44,5 @@ abstract class BaseContactWithEditTextFragment<
         inputManager?.hideSoftInputFromWindow(activity?.currentFocus?.windowToken, 0)
     }
 
-    companion object {
-
-    }
+    companion object
 }

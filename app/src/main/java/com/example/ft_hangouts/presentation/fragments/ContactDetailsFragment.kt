@@ -53,6 +53,7 @@ class ContactDetailsFragment : BaseViewModelFragment<
     private fun initButtonClickListener() {
         binding?.buttonEditContact?.setOnClickListener { viewModel.onEditContactClick() }
         binding?.buttonDelete?.setOnClickListener { viewModel.onDeleteContactClick() }
+        binding?.buttonGoToChat?.setOnClickListener { viewModel.onIconChatClick() }
     }
 
     override fun getViewModelClass(): Class<ContactDetailsViewModel> =
