@@ -47,7 +47,7 @@ class DBContacts(private val dbHelper: ContactDBHelper) : DbContactsDao {
     override fun removeContactById(contactId: String) {
         val db: SQLiteDatabase = dbHelper.writableDatabase
 
-        db.delete(ContactEntry.TABLE_NAME, "`${BaseColumns._ID}` = ?", arrayOf("60"))
+        db.delete(ContactEntry.TABLE_NAME, ("`${BaseColumns._ID}` = ?"), arrayOf(contactId))
         db.close()
     }
 

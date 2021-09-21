@@ -35,6 +35,13 @@ class DBMessages(private val dbHelper: ContactDBHelper) : DBMessagesDao {
         db.close()
     }
 
+    override fun removeChatById(contactId: String) {
+        val db: SQLiteDatabase = dbHelper.writableDatabase
+
+        db.delete(ChatEntry.TABLE_NAME, ("`${ChatEntry.COLUMN_CHAT_ID}` = ?"), arrayOf(contactId))
+        db.close()
+    }
+
     private fun getContentValues(message: ChatMessage, contactId: String): ContentValues {
         val values = ContentValues()
 

@@ -17,8 +17,10 @@ class ContactRepository(
     fun addContact(contact: Contact) =
         dbContacts.addContact(contact)
 
-    fun removeContactById(contactId: String) =
+    fun removeContactById(contactId: String) {
         dbContacts.removeContactById(contactId)
+        dbMessages.removeChatById(contactId)
+    }
 
     fun updateContact(contact: Contact) =
         dbContacts.updateContact(contact)

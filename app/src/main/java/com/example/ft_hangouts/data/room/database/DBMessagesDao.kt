@@ -6,4 +6,6 @@ interface DBMessagesDao {
     fun getAllMessages(contactId: String): List<ChatMessage>
 
     fun addMessageById(message: ChatMessage, contactId: String)
+
+    fun removeChatById(contactId: String)
 }
