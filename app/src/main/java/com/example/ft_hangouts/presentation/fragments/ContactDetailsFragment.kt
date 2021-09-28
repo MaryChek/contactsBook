@@ -22,7 +22,7 @@ class ContactDetailsFragment : BaseViewModelFragment<
     private var binding: FragmentContactDetailBinding? = null
     private var dialog: DialogCreator? = null
 
-    private val logTag: String = this::class.java.simpleName
+    override val logTag: String = this::class.java.simpleName
 
     override fun onCreateView(
         inflater: LayoutInflater,

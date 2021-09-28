@@ -15,5 +15,6 @@ sealed class FromContactsBook : BaseNavigation {
 
     sealed class Command : BaseNavigation.Command, FromContactsBook() {
         object CloseActivity : Command()
+        object AccessGetSmsPermissions : FromContactsBook()
     }
 }

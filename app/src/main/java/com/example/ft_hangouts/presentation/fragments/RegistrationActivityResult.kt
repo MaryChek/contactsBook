@@ -8,16 +8,12 @@ import androidx.fragment.app.Fragment
 interface RegistrationActivityResult {
 
     fun Fragment.registerForRequestPermissionResult(
-        onIsGrantedCallBack: () -> Unit,
-        onIsNotGrantedCallBack: () -> Unit,
+        onResponse: (Boolean) -> Unit,
     ): ActivityResultLauncher<String> =
         this.registerForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { isGranted ->
-            when (isGranted) {
-                true -> onIsGrantedCallBack()
-                false -> onIsNotGrantedCallBack()
-            }
+            onResponse(isGranted)
         }
 
     fun Fragment.registerForGettingContentResult(
@@ -28,6 +24,8 @@ interface RegistrationActivityResult {
         ) { uri: Uri ->
             onSuccessCallBack(uri)
         }
+
+
 
 //    fun startPermissionRequest(
 //        fragment: Fragment,

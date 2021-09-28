@@ -66,18 +66,12 @@ abstract class BaseContactEditorViewModel<FromScreen : BaseNavigation> :
 
     abstract fun showMessageError()
 
-    open fun onReadStoragePermissionIsGranted() =
-        Unit
-
     open fun onTakePicture(imageUri: Uri) =
         Unit
 
-    open fun onReadStoragePermissionIsNotGranted() =
+    open fun onReadStoragePermissionResponse(isGranted: Boolean) =
         Unit
 
-    open fun onWriteStoragePermissionIsGranted() =
-        Unit
-
-    open fun onWriteStoragePermissionIsNotGranted() =
+    open fun onWriteStoragePermissionResponse(isGranted: Boolean) =
         Unit
 }

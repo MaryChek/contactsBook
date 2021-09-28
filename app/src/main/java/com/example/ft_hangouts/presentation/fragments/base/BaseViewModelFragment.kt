@@ -1,12 +1,18 @@
 package com.example.ft_hangouts.presentation.fragments.base
 
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.CallSuper
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +22,7 @@ import com.example.ft_hangouts.presentation.App
 import com.example.ft_hangouts.presentation.navigation.base.BaseNavigation
 import com.example.ft_hangouts.presentation.navigation.base.GoToScreen
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseViewModel
+import java.lang.IllegalStateException
 
 abstract class BaseViewModelFragment<
         Model : Any,
@@ -24,6 +31,8 @@ abstract class BaseViewModelFragment<
         Router : GoToScreen<Navigate>,
         ViewModel : BaseViewModel<Model, FromScreen>>
     : Fragment() {
+
+    open val logTag: String = this::class.java.simpleName
 
     protected open lateinit var router: Router
     protected lateinit var viewModel: ViewModel
@@ -97,4 +106,29 @@ abstract class BaseViewModelFragment<
     abstract fun getViewModelClass(): Class<ViewModel>
 
     abstract fun getNavRouter(): Router
+
+    protected fun accessPermission(
+        permissionLauncher: ActivityResultLauncher<String>,
+        permission: String,
+        onResponseSuccess: () -> Unit,
+    ) {
+        try {
+            if (isPermissionDenied(permission)) {
+                permissionLauncher.launch(permission)
+            } else {
+                onResponseSuccess()
+            }
+        } catch (e: IllegalStateException) {
+            Log.e(logTag, "Context is null", e)
+            //TODO show something wrong try again
+        }
+    }
+
+    private fun isPermissionDenied(permission: String): Boolean =
+        ContextCompat.checkSelfPermission(requireContext(), permission) == PackageManager.PERMISSION_DENIED
+
+    protected fun showErrorMessage(@StringRes errorMessageResId: Int) {
+        val message: String = getString(errorMessageResId)
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+    }
 }

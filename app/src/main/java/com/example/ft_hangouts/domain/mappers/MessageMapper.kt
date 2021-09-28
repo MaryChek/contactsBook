@@ -1,7 +1,9 @@
 package com.example.ft_hangouts.domain.mappers
 
+import android.provider.Telephony
 import com.example.ft_hangouts.data.room.model.ChatMessage
 import com.example.ft_hangouts.domain.models.UserType
+import com.example.ft_hangouts.presentation.receiver.model.Sms
 import com.example.ft_hangouts.domain.models.ChatMessage as DomainChatMessage
 
 class MessageMapper {
@@ -26,5 +28,12 @@ class MessageMapper {
             message.messageText,
             message.userType.ordinal,
             message.messageTime,
+        )
+
+    fun mapSmsToMessage(sms: Sms): DomainChatMessage =
+        DomainChatMessage(
+            sms.message,
+            UserType.ThirdPartyUser,
+            sms.timeSend
         )
 }

@@ -14,10 +14,13 @@ class ContactsBookViewModel(
     private val mapper: ContactMapper,
 ) : BaseViewModel<List<Contact>, FromContactsBook>(listOf()) {
 
+    var hasPermissionToGetSms: Boolean = false
+
     fun init() {
         val contacts = interactor.getAllContacts()
         val currentContacts: List<Contact> = mapper.mapContacts(contacts)
         updateModel(currentContacts)
+        goToScreen(FromContactsBook.Command.AccessGetSmsPermissions)
     }
 
     private fun updateModel(contacts: List<Contact>) {
@@ -47,6 +50,10 @@ class ContactsBookViewModel(
                 getBundleForContactModel(contact)
             )
         )
+
+    fun onGetSmsPermissionResponse(isGranted: Boolean) {
+        hasPermissionToGetSms = isGranted
+    }
 
     override fun goToPrevious() =
         goToScreen(FromContactsBook.Command.CloseActivity)

@@ -35,17 +35,13 @@ abstract class BaseContactEditorFragment<
     }
 
     private fun initActivityResultLaunchers() {
-        requestPermissionForReadStorageLauncher = this.registerForRequestPermissionResult(
-            viewModel::onReadStoragePermissionIsGranted,
-            viewModel::onReadStoragePermissionIsNotGranted
-        )
+        requestPermissionForReadStorageLauncher =
+            registerForRequestPermissionResult(viewModel::onReadStoragePermissionResponse)
 
-        requestPermissionForWriteStorageLauncher = this.registerForRequestPermissionResult(
-            viewModel::onWriteStoragePermissionIsGranted,
-            viewModel::onWriteStoragePermissionIsNotGranted
-        )
+        requestPermissionForWriteStorageLauncher =
+            registerForRequestPermissionResult(viewModel::onWriteStoragePermissionResponse)
 
-        getContentLauncher = this.registerForGettingContentResult(viewModel::onTakePicture)
+        getContentLauncher = registerForGettingContentResult(viewModel::onTakePicture)
     }
 
     override fun onCreateView(
@@ -83,11 +79,6 @@ abstract class BaseContactEditorFragment<
         binding?.edtLastName?.setOnTextSubmitListener(viewModel::onLastNameSubmit)
         binding?.edtNumber?.setOnTextSubmitListener(viewModel::onNumberSubmit)
         binding?.edtEmail?.setOnTextSubmitListener(viewModel::onEmailSubmit)
-    }
-
-    protected fun showErrorMessage(@StringRes errorMessageResId: Int) {
-        val message: String = getString(errorMessageResId)
-        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroyView() {

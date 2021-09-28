@@ -1,13 +1,16 @@
 package com.example.ft_hangouts.presentation.fragments
 
+import android.Manifest
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.activity.result.ActivityResultLauncher
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
+import com.example.ft_hangouts.R
 import com.example.ft_hangouts.databinding.FragmentContactChatBinding
 import com.example.ft_hangouts.presentation.adapters.MessagesListAdapter
 import com.example.ft_hangouts.presentation.fragments.base.BaseContactWithEditTextFragment
@@ -19,11 +22,23 @@ import com.example.ft_hangouts.presentation.viewmodels.ContactChatViewModel
 
 class ContactChatFragment : BaseContactWithEditTextFragment<
         ChatState, FromContactChat, FromContactChat.Navigate,
-        ContactChatRouter, ContactChatViewModel>() {
+        ContactChatRouter, ContactChatViewModel>(), RegistrationActivityResult {
 
-    private val logTag: String = this::class.java.simpleName
+    override val logTag: String = this::class.java.simpleName
+
     private var binding: FragmentContactChatBinding? = null
     private var adapter: MessagesListAdapter? = null
+    private var requestPermissionForSendSmsLauncher: ActivityResultLauncher<String>? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initActivityResultLaunchers()
+    }
+
+    private fun initActivityResultLaunchers() {
+        requestPermissionForSendSmsLauncher =
+            registerForRequestPermissionResult(viewModel::onSendSmsPermissionResponse)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,19 +60,7 @@ class ContactChatFragment : BaseContactWithEditTextFragment<
 
     private fun initMessageList() {
         adapter = MessagesListAdapter()
-//        registerAdapterDataObserver()
         binding?.rvMessages?.adapter = adapter
-//        binding?.rvMessages?.smoothScrollToPosition(adapter?.itemCount ?: 0)
-    }
-
-    private fun registerAdapterDataObserver() {
-        adapter?.registerAdapterDataObserver(
-            (object : AdapterDataObserver() {
-                override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                    binding?.rvMessages?.smoothScrollToPosition(adapter?.itemCount ?: 0)
-                }
-            })
-        )
     }
 
     private fun init() {
@@ -83,11 +86,6 @@ class ContactChatFragment : BaseContactWithEditTextFragment<
         )
     }
 
-    override fun onDestroy() {
-        binding = null
-        super.onDestroy()
-    }
-
     override fun updateScreen(model: ChatState) {
         adapter?.submitList(model.listMessage)
         binding?.rvMessages?.smoothScrollToPosition(model.rvScrollPosition)
@@ -105,10 +103,30 @@ class ContactChatFragment : BaseContactWithEditTextFragment<
                 router.goToScreen(destination)
             is FromContactChat.Command.ClearEditTextAndSetEditorAction ->
                 clearEditTextAndSetEditorAction()
+            is FromContactChat.Command.AccessSendSmsPermissions ->
+                accessSendSmsPermissions()
+            is FromContactChat.Command.ShowErrorMessage ->
+                showErrorMessage(destination.errorMessage)
+            else -> {
+            }
         }
+
+    private fun accessSendSmsPermissions() {
+        requestPermissionForSendSmsLauncher?.let { launcher ->
+            accessPermission(launcher, Manifest.permission.SEND_SMS) {
+                viewModel.onSendSmsPermissionResponse(true)
+            }
+        }
+    }
 
     private fun clearEditTextAndSetEditorAction() {
         binding?.input?.onEditorAction(EditorInfo.IME_ACTION_SEND)
         binding?.input?.text?.clear()
+    }
+
+    override fun onDestroy() {
+        binding = null
+        requestPermissionForSendSmsLauncher = null
+        super.onDestroy()
     }
 }

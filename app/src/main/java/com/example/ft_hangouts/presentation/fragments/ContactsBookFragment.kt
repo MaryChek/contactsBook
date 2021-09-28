@@ -1,7 +1,9 @@
 package com.example.ft_hangouts.presentation.fragments
 
+import android.Manifest
 import android.os.Bundle
 import android.view.*
+import androidx.activity.result.ActivityResultLauncher
 import com.example.ft_hangouts.R
 import com.example.ft_hangouts.databinding.FragmentContactsBookBinding
 import com.example.ft_hangouts.presentation.adapters.ContactsListAdapter
@@ -13,10 +15,21 @@ import com.example.ft_hangouts.presentation.viewmodels.ContactsBookViewModel
 
 class ContactsBookFragment : BaseViewModelFragment<
         List<Contact>, FromContactsBook, FromContactsBook.Navigate, ContactsBookRouter,
-        ContactsBookViewModel>() {
+        ContactsBookViewModel>(), RegistrationActivityResult {
 
     private var binding: FragmentContactsBookBinding? = null
     private var adapter: ContactsListAdapter? = null
+    private var requestPermissionForGetSmsLauncher: ActivityResultLauncher<String>? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initActivityResultLaunchers()
+    }
+
+    private fun initActivityResultLaunchers() {
+        requestPermissionForGetSmsLauncher =
+            registerForRequestPermissionResult(viewModel::onGetSmsPermissionResponse)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,6 +76,7 @@ class ContactsBookFragment : BaseViewModelFragment<
     override fun navigateTo(destination: FromContactsBook) {
         when (destination) {
             is FromContactsBook.Command.CloseActivity -> closeActivity()
+            is FromContactsBook.Command.AccessGetSmsPermissions -> accessGetSmsPermissions()
             is FromContactsBook.Navigate -> router.goToScreen(destination)
         }
     }
@@ -74,9 +88,18 @@ class ContactsBookFragment : BaseViewModelFragment<
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+        requestPermissionForGetSmsLauncher = null
     }
 
     private fun closeActivity() {
         activity?.finish()
+    }
+
+    private fun accessGetSmsPermissions() {
+        requestPermissionForGetSmsLauncher?.let { launcher ->
+            accessPermission(launcher, Manifest.permission.RECEIVE_SMS) {
+                viewModel.onGetSmsPermissionResponse(true)
+            }
+        }
     }
 }

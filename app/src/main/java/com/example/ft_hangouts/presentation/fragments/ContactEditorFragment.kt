@@ -14,7 +14,7 @@ class ContactEditorFragment : BaseContactEditorFragment<
         FromContactEditor, FromContactEditor.Navigate,
         ContactEditorRouter, ContactEditorViewModel>() {
 
-    private val logTag: String = this::class.java.simpleName
+    override val logTag: String = this::class.java.simpleName
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

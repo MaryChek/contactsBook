@@ -3,6 +3,7 @@ package com.example.ft_hangouts.presentation.models
 import com.example.ft_hangouts.domain.models.ChatMessage
 
 class ChatState(
+    val hasPermissionToSend: Boolean = false,
     val currentMessage: String = "",
     val contact: Contact? = null,
     val listMessage: List<ChatMessage> = listOf()

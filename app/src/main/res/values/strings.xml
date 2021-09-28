@@ -20,4 +20,5 @@
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
     <string name="chat_input">Enter text</string>
+    <string name="error_send_message">You can\'t send messages</string>
 </resources>

@@ -40,24 +40,24 @@ class ContactCreatorViewModel(
     override fun isNumberIndividual(number: String): Boolean =
         interactor.isNumberIndividual(number)
 
-    override fun onReadStoragePermissionIsGranted() {
-        goToScreen(FromContactCreator.Command.TakePictureFromGallery)
+    override fun onReadStoragePermissionResponse(isGranted: Boolean) {
+        if (isGranted) {
+            goToScreen(FromContactCreator.Command.TakePictureFromGallery)
+        } else {
+            //TODO do something
+        }
+    }
+
+    override fun onWriteStoragePermissionResponse(isGranted: Boolean) {
+        if (isGranted) {
+            //TODO do something
+        } else {
+            //TODO do something
+        }
     }
 
     override fun onTakePicture(imageUri: Uri) {
         Log.v("IMAGE", imageUri.toString()) // TODO add picture to imageView
-    }
-
-    override fun onReadStoragePermissionIsNotGranted() {
-
-    }
-
-    override fun onWriteStoragePermissionIsGranted() {
-        //TODO save image
-    }
-
-    override fun onWriteStoragePermissionIsNotGranted() {
-
     }
 
     override fun goToPrevious() =
