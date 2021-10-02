@@ -2,12 +2,13 @@ package com.example.ft_hangouts.presentation.viewmodels.base
 
 import android.net.Uri
 import android.util.Log
+import com.example.ft_hangouts.domain.interactors.ContactsInteractor
 import com.example.ft_hangouts.presentation.models.Contact
 import com.example.ft_hangouts.presentation.models.ContactState
 import com.example.ft_hangouts.presentation.navigation.base.BaseNavigation
 import java.lang.IllegalArgumentException
 
-abstract class BaseContactEditorViewModel<FromScreen : BaseNavigation> :
+abstract class BaseContactEditorViewModel<FromScreen : BaseNavigation>(protected val interactor: ContactsInteractor) :
     BaseViewModel<ContactState, FromScreen>(ContactState()) {
 
     open val logTag: String = this::class.java.simpleName
@@ -20,6 +21,7 @@ abstract class BaseContactEditorViewModel<FromScreen : BaseNavigation> :
         personEmail: String? = model.contact?.email,
         imagePath: String? = model.contact?.imagePath,
         isNumberIndividual: Boolean = model.isNumberIndividual,
+        isNumberCorrect: Boolean = model.isNumberCorrect
     ) {
         if (contactId != null) {
             val contact = Contact(
@@ -30,7 +32,7 @@ abstract class BaseContactEditorViewModel<FromScreen : BaseNavigation> :
                 email = personEmail,
                 imagePath = imagePath
             )
-            model = ContactState(contact, isNumberIndividual)
+            model = ContactState(contact, isNumberIndividual, isNumberCorrect)
         } else {
             Log.e(logTag, "missing contact id", IllegalArgumentException())
         }
@@ -59,7 +61,12 @@ abstract class BaseContactEditorViewModel<FromScreen : BaseNavigation> :
 
     fun onNumberSubmit(number: String) {
         val isNumberIndividual: Boolean = isNumberIndividual(number)
-        updateModel(personNumber = number, isNumberIndividual = isNumberIndividual)
+        val isNumberCorrect: Boolean = interactor.isNumberValid(number)
+        updateModel(
+            personNumber = number,
+            isNumberIndividual = isNumberIndividual,
+            isNumberCorrect = isNumberCorrect
+        )
     }
 
     abstract fun isNumberIndividual(number: String): Boolean

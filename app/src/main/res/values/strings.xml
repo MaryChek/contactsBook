@@ -8,6 +8,7 @@
     <string name="save">Save</string>
     <string name="empty_name_error_message">The name field must not be empty</string>
     <string name="invalid_number_error_message">Such number already exists</string>
+    <string name="incorrect_number_error_message">Number not correct</string>
     <string name="empty_string" translatable="false" />
     <string name="created_last_name_hint">Last name</string>
     <string name="created_email_hint">Email</string>

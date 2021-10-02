@@ -13,9 +13,9 @@ import com.example.ft_hangouts.presentation.viewmodels.base.BaseContactEditorVie
 import java.lang.IllegalArgumentException
 
 class ContactEditorViewModel(
-    private val interactor: ContactsInteractor,
+    interactor: ContactsInteractor,
     private val mapper: ContactMapper,
-) : BaseContactEditorViewModel<FromContactEditor>() {
+) : BaseContactEditorViewModel<FromContactEditor>(interactor) {
 
     override val logTag: String = this::class.java.simpleName
 

@@ -24,12 +24,15 @@ class ContactsInteractor(
 
     fun isNumberIndividual(number: String, unlessId: String? = null): Boolean =
         getAllContacts().find { contact ->
-            contact.number == number && contact.id != unlessId
+            contact.numberEquals(number) && contact.id != unlessId
         } == null
+
+    fun isNumberValid(number: String): Boolean =
+        Contact(number = number).isValid()
 
     private fun findContactIdByNumber(number: String): String? =
         getAllContacts().find { contact ->
-            contact.number == number
+            contact.numberEquals(number)
         }?.id
 
     fun addContact(contact: Contact): Long =
@@ -61,21 +64,22 @@ class ContactsInteractor(
     }
 
     override fun getMessage(sms: Sms) {
-        val id: String? =
-            if (isNumberIndividual(sms.number)) {
-                createNewContact(sms.number)
-            } else {
-                findContactIdByNumber(sms.number)
-            }
+        val id: String =
+            findContactIdByNumber(sms.number) ?: createNewContact(sms.number)
         val message = mapper.mapSmsToMessage(sms)
-        id?.let {
-            addMessageById(message, id)
-        } ?: Log.e(logTag, "contactId not find")
+        if (id == ERROR_ID) {
+            Log.e(logTag, "contact create fail")
+        }
+        addMessageById(message, id)
     }
 
     private fun createNewContact(number: String): String {
         val newId: String = getNewContactIndex()
         val contact = Contact(id = newId, name = number, number = number)
         return addContact(contact).toString()
+    }
+
+    companion object {
+        private const val ERROR_ID = "-1"
     }
 }

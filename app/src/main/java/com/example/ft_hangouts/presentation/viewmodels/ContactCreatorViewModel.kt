@@ -8,9 +8,9 @@ import com.example.ft_hangouts.presentation.navigation.FromContactCreator
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseContactEditorViewModel
 
 class ContactCreatorViewModel(
-    private val interactor: ContactsInteractor,
+    interactor: ContactsInteractor,
     private val mapper: ContactMapper,
-) : BaseContactEditorViewModel<FromContactCreator>() {
+) : BaseContactEditorViewModel<FromContactCreator>(interactor) {
 
     override val logTag: String = this::class.java.simpleName
 
