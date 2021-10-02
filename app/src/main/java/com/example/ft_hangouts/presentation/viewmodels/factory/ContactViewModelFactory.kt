@@ -20,6 +20,7 @@ class ContactViewModelFactory(
             ContactDetailsViewModel::class.java -> ContactDetailsViewModel(interactor) as T
             ContactEditorViewModel::class.java -> ContactEditorViewModel(interactor, ContactMapper()) as T
             ContactChatViewModel::class.java -> ContactChatViewModel(interactor, MessageMapper()) as T
+            RootViewModel::class.java -> RootViewModel(interactor) as T
             else -> throw IllegalArgumentException("Factory cannot make ViewModel of type ${modelClass.simpleName}")
         }
 }

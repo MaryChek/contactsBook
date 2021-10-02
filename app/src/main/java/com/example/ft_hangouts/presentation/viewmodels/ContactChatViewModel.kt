@@ -8,7 +8,6 @@ import com.example.ft_hangouts.domain.models.ChatMessage
 import com.example.ft_hangouts.presentation.models.ChatState
 import com.example.ft_hangouts.presentation.models.Contact
 import com.example.ft_hangouts.presentation.navigation.FromContactChat
-import com.example.ft_hangouts.presentation.receiver.SmsReceiveListener
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseViewModel
 
 class ContactChatViewModel(

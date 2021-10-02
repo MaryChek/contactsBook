@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedQuantity">
     <string name="app_name">ft_hangouts</string>
     <string name="new_contact">Новый контакт</string>
     <string name="change_color">Сменить цвет</string>
@@ -21,4 +21,12 @@
     <string name="cancel">Отмена</string>
     <string name="chat_input">Введите техт</string>
     <string name="error_send_message">Вы не можете отправлять сообщения</string>
+
+    <plurals name="message_background_time">
+        <item quantity="one">Вы отсутсвовали %1$d секунду</item>
+        <item quantity="two">Вы отсутсвовали %1$d секунды</item>
+        <item quantity="few">Вы отсутсвовали %1$d секунды</item>
+        <item quantity="many">Вы отсутсвовали %1$d секунд</item>
+        <item quantity="other">Вы отсутсвовали %1$d секунду</item>
+    </plurals>
 </resources>

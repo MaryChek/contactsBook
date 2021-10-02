@@ -14,7 +14,7 @@ class ContactRepository(
     fun getAllContacts(): List<Contact> =
         dbContacts.getAllContacts()
 
-    fun addContact(contact: Contact) =
+    fun addContact(contact: Contact): Long =
         dbContacts.addContact(contact)
 
     fun removeContactById(contactId: String) {

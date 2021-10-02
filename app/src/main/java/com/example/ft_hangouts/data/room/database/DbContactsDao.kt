@@ -5,7 +5,7 @@ import com.example.ft_hangouts.domain.models.Contact
 interface DbContactsDao {
     fun getAllContacts(): List<Contact>
 
-    fun addContact(contact: Contact)
+    fun addContact(contact: Contact): Long
 
     fun removeContactById(contactId: String)
 

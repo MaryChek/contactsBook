@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
 import com.example.ft_hangouts.data.room.helper.ContactDBHelper
 import com.example.ft_hangouts.data.room.model.ContactInformationContract.ContactEntry
-import com.example.ft_hangouts.domain.models.ChatMessage
 import com.example.ft_hangouts.domain.models.Contact
 
 class DBContacts(private val dbHelper: ContactDBHelper) : DbContactsDao {
@@ -35,13 +34,14 @@ class DBContacts(private val dbHelper: ContactDBHelper) : DbContactsDao {
         return contacts
     }
 
-    override fun addContact(contact: Contact) {
+    override fun addContact(contact: Contact): Long {
         val db: SQLiteDatabase = dbHelper.writableDatabase
 
         val values = getContentValues(contact)
 
-        db.insert(ContactEntry.TABLE_NAME, null, values)
+        val id = db.insert(ContactEntry.TABLE_NAME, null, values)
         db.close()
+        return id
     }
 
     override fun removeContactById(contactId: String) {

@@ -57,6 +57,11 @@ class ContactsBookFragment : BaseViewModelFragment<
         initContactList()
         viewModel.init()
     }
+//
+//    override fun onResume() {
+//        super.onResume()
+//        viewModel.init()
+//    }
 
     private fun initButtonCreateNewContactClickListener() {
         binding?.buttonCreateNewContact?.setOnClickListener { viewModel.onButtonCreateNewContactClick() }

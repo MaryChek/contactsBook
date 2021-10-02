@@ -22,14 +22,17 @@ class ContactsInteractor(
     fun getNewContactIndex(): String =
         getAllContacts().size.toString()
 
-    fun isNumberIndividual(number: String, unlessId: String? = null): Boolean {
-        val contactList = getAllContacts()
-        return contactList.find { contact ->
+    fun isNumberIndividual(number: String, unlessId: String? = null): Boolean =
+        getAllContacts().find { contact ->
             contact.number == number && contact.id != unlessId
         } == null
-    }
 
-    fun addContact(contact: Contact) =
+    private fun findContactIdByNumber(number: String): String? =
+        getAllContacts().find { contact ->
+            contact.number == number
+        }?.id
+
+    fun addContact(contact: Contact): Long =
         repository.addContact(contact)
 
     fun removeContactById(contactId: String) =
@@ -58,22 +61,21 @@ class ContactsInteractor(
     }
 
     override fun getMessage(sms: Sms) {
-        var contactId: String? = getAllContacts().find {
-            sms.number == it.number
-        }?.id
-
-        if (contactId == null) {
-            val newContact = Contact(
-                id = getNewContactIndex(),
-                name = sms.number,
-                number = sms.number,
-            )
-            repository.addContact(newContact)
-            contactId = newContact.id
-        }
+        val id: String? =
+            if (isNumberIndividual(sms.number)) {
+                createNewContact(sms.number)
+            } else {
+                findContactIdByNumber(sms.number)
+            }
         val message = mapper.mapSmsToMessage(sms)
-        contactId?.let { id ->
-            addMessageById(message, contactId)
-        }
+        id?.let {
+            addMessageById(message, id)
+        } ?: Log.e(logTag, "contactId not find")
+    }
+
+    private fun createNewContact(number: String): String {
+        val newId: String = getNewContactIndex()
+        val contact = Contact(id = newId, name = number, number = number)
+        return addContact(contact).toString()
     }
 }

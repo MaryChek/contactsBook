@@ -9,8 +9,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.activity.result.ActivityResultLauncher
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
-import com.example.ft_hangouts.R
 import com.example.ft_hangouts.databinding.FragmentContactChatBinding
 import com.example.ft_hangouts.presentation.adapters.MessagesListAdapter
 import com.example.ft_hangouts.presentation.fragments.base.BaseContactWithEditTextFragment
