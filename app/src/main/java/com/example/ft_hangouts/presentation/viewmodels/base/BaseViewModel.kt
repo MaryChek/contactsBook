@@ -23,6 +23,10 @@ abstract class BaseViewModel<Model : Any, Navigation : BaseNavigation>(
     val colorStateUpdated = MutableLiveData<ColorState>()
     protected var colorState = ColorState(Color.Purple)
 
+    init {
+        updateColorState()
+    }
+
     @CallSuper
     open fun init() {
         val color: Color = interactor.getColor()

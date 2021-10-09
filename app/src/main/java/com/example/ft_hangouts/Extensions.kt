@@ -37,3 +37,7 @@ fun Fragment.getColor(@ColorRes colorResId: Int): Int =
 fun ImageView.updateColor(color: Int) {
     colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
 }
+
+fun ImageView.updateMultiplyColor(color: Int) {
+    colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.MULTIPLY)
+}

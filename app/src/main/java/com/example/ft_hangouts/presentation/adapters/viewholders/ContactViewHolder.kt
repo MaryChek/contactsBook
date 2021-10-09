@@ -1,10 +1,13 @@
 package com.example.ft_hangouts.presentation.adapters.viewholders
 
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import androidx.annotation.ColorRes
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ft_hangouts.databinding.ItemContactBinding
 import com.example.ft_hangouts.presentation.models.Contact
 import com.example.ft_hangouts.updateColor
+import com.example.ft_hangouts.updateMultiplyColor
 
 class ContactViewHolder(private val binding: ItemContactBinding) :
     RecyclerView.ViewHolder(binding.root) {
@@ -40,9 +43,10 @@ class ContactViewHolder(private val binding: ItemContactBinding) :
             }
         }
 
-    private fun setupButtonColor(@ColorRes colorRes: Int) =
+    private fun setupButtonColor(colorRes: Int) =
         binding.apply {
             buttonCallToContact.updateColor(colorRes)
             buttonGoToChat.updateColor(colorRes)
+            imgPerson.updateMultiplyColor(colorRes)
         }
 }

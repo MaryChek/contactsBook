@@ -17,6 +17,7 @@ import com.example.ft_hangouts.presentation.navigation.FromContactDetails
 import com.example.ft_hangouts.presentation.navigation.router.ContactDetailsRouter
 import com.example.ft_hangouts.presentation.viewmodels.ContactDetailsViewModel
 import com.example.ft_hangouts.updateColor
+import com.example.ft_hangouts.updateMultiplyColor
 
 class ContactDetailsFragment : BaseViewModelFragment<
         ContactDetailState, FromContactDetails, FromContactDetails.Navigate,
@@ -81,6 +82,7 @@ class ContactDetailsFragment : BaseViewModelFragment<
     override fun updateColor(colorState: ColorState) {
         super.updateColor(colorState)
         val color: Int = getColor(colorState.colorResId)
+        binding?.imgPerson?.updateMultiplyColor(color)
         binding?.buttonGoToChat?.updateColor(color)
         binding?.buttonCallToContact?.updateColor(color)
         binding?.buttonDelete?.updateColor(color)
