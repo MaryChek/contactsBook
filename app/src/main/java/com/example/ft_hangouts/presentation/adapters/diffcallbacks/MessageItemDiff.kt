@@ -9,5 +9,6 @@ class MessageItemDiff : DiffUtil.ItemCallback<ChatMessage>() {
                 && oldItem.messageText == newItem.messageText
 
     override fun areItemsTheSame(oldItem: ChatMessage, newItem: ChatMessage): Boolean =
-        oldItem.userType == newItem.userType && oldItem.messageTime == newItem.messageTime
+        oldItem.userType == newItem.userType && oldItem.messageTime == newItem.messageTime &&
+                oldItem.messageText == newItem.messageText
 }

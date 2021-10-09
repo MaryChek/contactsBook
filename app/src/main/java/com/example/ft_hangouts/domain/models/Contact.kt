@@ -13,10 +13,10 @@ class Contact(
     fun isValid(): Boolean =
         number?.isConsistOnlyDigits() ?: false
 
-    private val realNumber : String? = number?.toRealNumber()
+    private val realNumber: String? = number?.toRealNumber()
 
     private fun String.toRealNumber(): String =
-        if (first() == '+') {
+        if (isNotBlank() && first() == '+') {
             getWithoutFirst().incrementFirstDigit()
         } else {
             this
