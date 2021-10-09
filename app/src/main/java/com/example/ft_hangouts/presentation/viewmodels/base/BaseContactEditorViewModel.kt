@@ -8,8 +8,9 @@ import com.example.ft_hangouts.presentation.models.ContactState
 import com.example.ft_hangouts.presentation.navigation.base.BaseNavigation
 import java.lang.IllegalArgumentException
 
-abstract class BaseContactEditorViewModel<FromScreen : BaseNavigation>(protected val interactor: ContactsInteractor) :
-    BaseViewModel<ContactState, FromScreen>(ContactState()) {
+abstract class BaseContactEditorViewModel<FromScreen : BaseNavigation>(
+    override val interactor: ContactsInteractor
+) : BaseViewModel<ContactState, FromScreen>(interactor, ContactState()) {
 
     open val logTag: String = this::class.java.simpleName
 

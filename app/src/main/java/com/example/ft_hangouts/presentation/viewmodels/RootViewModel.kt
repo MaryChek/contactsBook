@@ -13,8 +13,8 @@ import com.example.ft_hangouts.presentation.viewmodels.base.BaseViewModel
 import java.util.*
 
 class RootViewModel(
-    private val interactor: ContactsInteractor,
-) : BaseViewModel<Any, FromMainActivity>(Any()) {
+    override val interactor: ContactsInteractor,
+) : BaseViewModel<Any, FromMainActivity>(interactor, Any()) {
 
     private val logTag: String = this::class.java.simpleName
     private var backgroundTime: Int? = null

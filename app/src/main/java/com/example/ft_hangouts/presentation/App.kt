@@ -6,8 +6,11 @@ import com.example.ft_hangouts.data.repository.ContactRepository
 import com.example.ft_hangouts.data.room.database.DBContacts
 import com.example.ft_hangouts.data.room.database.DBMessages
 import com.example.ft_hangouts.data.room.helper.ContactDBHelper
+import com.example.ft_hangouts.data.storage.ColorStorage
+import com.example.ft_hangouts.data.storage.Prefs
 import com.example.ft_hangouts.domain.interactors.ContactsInteractor
 import com.example.ft_hangouts.domain.mappers.MessageMapper
+import com.example.ft_hangouts.presentation.models.ColorState
 import com.example.ft_hangouts.presentation.viewmodels.factory.ContactViewModelFactory
 
 class App: Application() {
@@ -25,7 +28,9 @@ class App: Application() {
         val dbContacts = DBContacts(dbHelper)
         val dbMessages = DBMessages(dbHelper)
         val repository = ContactRepository(dbContacts, dbMessages, MessageMapper())
-        interactor = ContactsInteractor(repository, MessageMapper())
+        val prefs = Prefs(applicationContext)
+        val colorStorage = ColorStorage(prefs)
+        interactor = ContactsInteractor(repository, MessageMapper(), colorStorage)
         viewModelFactory = ContactViewModelFactory(interactor)
     }
 

@@ -26,7 +26,7 @@ class ContactEditorFragment : BaseContactEditorFragment<
             arguments?.getSerializable(Contact::class.java.simpleName) as Contact?
 
         contact?.let {
-            viewModel.init(contact)
+            viewModel.initContact(contact)
         } ?: Log.e(logTag, "Missing Contact")
     }
 

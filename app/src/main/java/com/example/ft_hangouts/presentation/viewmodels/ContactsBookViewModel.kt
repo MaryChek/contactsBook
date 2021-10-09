@@ -10,13 +10,14 @@ import com.example.ft_hangouts.presentation.navigation.FromContactsBook
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseViewModel
 
 class ContactsBookViewModel(
-    private val interactor: ContactsInteractor,
+    override val interactor: ContactsInteractor,
     private val mapper: ContactMapper,
-) : BaseViewModel<List<Contact>, FromContactsBook>(listOf()) {
+) : BaseViewModel<List<Contact>, FromContactsBook>(interactor, listOf()) {
 
     var hasPermissionToGetSms: Boolean = false
 
-    fun init() {
+    override fun init() {
+        super.init()
         val contacts = interactor.getAllContacts()
         val currentContacts: List<Contact> = mapper.mapContacts(contacts)
         updateModel(currentContacts)

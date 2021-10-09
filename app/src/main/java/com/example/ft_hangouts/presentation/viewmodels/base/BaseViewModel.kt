@@ -1,14 +1,18 @@
 package com.example.ft_hangouts.presentation.viewmodels.base
 
+import androidx.annotation.CallSuper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.ft_hangouts.domain.interactors.ColorInteractor
+import com.example.ft_hangouts.domain.interactors.ContactsInteractor
 import com.example.ft_hangouts.presentation.models.ColorState
 import com.example.ft_hangouts.presentation.models.ColorState.Color
 import com.example.ft_hangouts.presentation.navigation.base.BaseNavigation
 import com.example.ft_hangouts.presentation.views.controllers.SingleEventLiveData
 
 abstract class BaseViewModel<Model : Any, Navigation : BaseNavigation>(
+    protected open val interactor: ColorInteractor,
     initModel: Model
 ) : ViewModel() {
     protected var model: Model = initModel
@@ -20,6 +24,19 @@ abstract class BaseViewModel<Model : Any, Navigation : BaseNavigation>(
     val colorStateUpdated = MutableLiveData<ColorState>()
     protected var colorState = ColorState(Color.Purple)
 
+    @CallSuper
+    open fun init() {
+        val color: Color = interactor.getColor()
+        updateColorIfRequired(color)
+    }
+
+    private fun updateColorIfRequired(color: Color) =
+        when (color) {
+            Color.Red -> onRedColorSelected()
+            Color.Blue -> onBlueColorSelected()
+            Color.Green -> onGreenColorSelected()
+            Color.Purple -> onPurpleColorSelected()
+        }
 
     protected fun updateScreen() {
         modelUpdated.value = model
@@ -69,6 +86,7 @@ abstract class BaseViewModel<Model : Any, Navigation : BaseNavigation>(
 
     private fun updateColor(color: Color) {
         colorState = ColorState(color)
+        interactor.setColor(color)
         updateColorState()
     }
 }

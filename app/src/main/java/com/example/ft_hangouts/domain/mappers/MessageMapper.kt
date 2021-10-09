@@ -3,6 +3,7 @@ package com.example.ft_hangouts.domain.mappers
 import android.provider.Telephony
 import com.example.ft_hangouts.data.room.model.ChatMessage
 import com.example.ft_hangouts.domain.models.UserType
+import com.example.ft_hangouts.presentation.models.ColorState
 import com.example.ft_hangouts.presentation.receiver.model.Sms
 import com.example.ft_hangouts.domain.models.ChatMessage as DomainChatMessage
 
@@ -36,4 +37,12 @@ class MessageMapper {
             UserType.ThirdPartyUser,
             sms.timeSend
         )
+
+    fun mapColor(color: Int): ColorState.Color =
+        when (color) {
+            ColorState.Color.Green.ordinal -> ColorState.Color.Green
+            ColorState.Color.Blue.ordinal -> ColorState.Color.Blue
+            ColorState.Color.Red.ordinal -> ColorState.Color.Red
+            else -> ColorState.Color.Purple
+        }
 }

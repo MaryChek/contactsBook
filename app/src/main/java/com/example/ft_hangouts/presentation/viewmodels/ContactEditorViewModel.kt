@@ -19,7 +19,7 @@ class ContactEditorViewModel(
 
     override val logTag: String = this::class.java.simpleName
 
-    fun init(contact: Contact) {
+    fun initContact(contact: Contact) {
         updateModel(
             contactId = contact.id,
             personName = contact.name,

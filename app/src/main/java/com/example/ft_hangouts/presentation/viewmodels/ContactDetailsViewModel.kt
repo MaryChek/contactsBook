@@ -11,12 +11,12 @@ import com.example.ft_hangouts.presentation.navigation.FromContactDetails
 import com.example.ft_hangouts.presentation.navigation.FromContactsBook
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseViewModel
 
-class ContactDetailsViewModel(private val interactor: ContactsInteractor)
-    : BaseViewModel<ContactDetailState, FromContactDetails>(ContactDetailState(Contact())) {
+class ContactDetailsViewModel(override val interactor: ContactsInteractor)
+    : BaseViewModel<ContactDetailState, FromContactDetails>(interactor, ContactDetailState(Contact())) {
 
     val logTag: String = ContactDetailsViewModel::class.java.simpleName
 
-    fun init(contact: Contact) {
+    fun initContact(contact: Contact) {
         val contactState = ContactDetailState(contact)
         updateModel(contactState)
     }

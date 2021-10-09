@@ -14,7 +14,8 @@ class ContactCreatorViewModel(
 
     override val logTag: String = this::class.java.simpleName
 
-    fun init() {
+    override fun init() {
+        super.init()
         val contactId: String = interactor.getNewContactIndex()
         updateModel(contactId)
     }

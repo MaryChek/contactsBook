@@ -3,15 +3,18 @@ package com.example.ft_hangouts.domain.interactors
 import android.telephony.SmsManager
 import android.util.Log
 import com.example.ft_hangouts.data.repository.ContactRepository
+import com.example.ft_hangouts.data.storage.ColorStorage
 import com.example.ft_hangouts.domain.mappers.MessageMapper
 import com.example.ft_hangouts.domain.models.ChatMessage
 import com.example.ft_hangouts.domain.models.Contact
+import com.example.ft_hangouts.presentation.models.ColorState
 import com.example.ft_hangouts.presentation.receiver.model.Sms
 
 class ContactsInteractor(
     private val repository: ContactRepository,
-    private val mapper: MessageMapper
-) : GetMessage {
+    private val mapper: MessageMapper,
+    private val colorStorage: ColorStorage
+) : GetMessage, ColorInteractor {
 
     private val logTag: String = this::class.java.simpleName
     private var onNewMessageCreatedListener: ((ChatMessage) -> Unit)? = null
@@ -79,7 +82,16 @@ class ContactsInteractor(
         return addContact(contact).toString()
     }
 
+    override fun getColor(): ColorState.Color {
+        val color: Int = colorStorage.getColor(DEFAULT_COLOR_VALUE.ordinal)
+        return mapper.mapColor(color)
+    }
+
+    override fun setColor(color: ColorState.Color) =
+        colorStorage.setColor(color.ordinal)
+
     companion object {
         private const val ERROR_ID = "-1"
+        private val DEFAULT_COLOR_VALUE = ColorState.Color.Purple
     }
 }

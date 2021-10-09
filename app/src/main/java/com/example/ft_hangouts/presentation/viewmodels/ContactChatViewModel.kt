@@ -11,14 +11,14 @@ import com.example.ft_hangouts.presentation.navigation.FromContactChat
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseViewModel
 
 class ContactChatViewModel(
-    private val interactor: ContactsInteractor,
+    override val interactor: ContactsInteractor,
     private val mapper: MessageMapper,
-) : BaseViewModel<ChatState, FromContactChat>(ChatState()) {
+) : BaseViewModel<ChatState, FromContactChat>(interactor, ChatState()) {
 
     private val logTag: String = this::class.java.simpleName
 
-    fun init() {
-
+    override fun init() {
+        super.init()
         interactor.setOnNewMessageCreatedListener(this::onNewMessageCreated)
         goToScreen(FromContactChat.Command.AccessSendSmsPermissions)
     }

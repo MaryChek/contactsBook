@@ -44,7 +44,7 @@ class ContactDetailsFragment : BaseViewModelFragment<
         val contact: Contact? =
             arguments?.getSerializable(Contact::class.java.simpleName) as Contact?
         if (contact != null) {
-            viewModel.init(contact)
+            viewModel.initContact(contact)
         } else {
             Log.e(logTag, "Missing Contact")
         }
