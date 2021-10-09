@@ -16,7 +16,8 @@ sealed class FromContactsBook : BaseNavigation {
 
     sealed class Command : BaseNavigation.Command, FromContactsBook() {
         object CloseActivity : Command()
-        object AccessGetSmsPermissions : FromContactsBook()
-        class UpdateIconsColor(val color: ColorState.Color)
+        object AccessGetSmsPermissions : Command()
+        object AccessCallPhonePermissions : Command()
+        class CallPhone(val number: String) : Command()
     }
 }

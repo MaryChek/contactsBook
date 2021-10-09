@@ -16,5 +16,7 @@ sealed class FromContactDetails : BaseNavigation {
 
     sealed class Command : BaseNavigation.Command, FromContactDetails() {
         class OpenDeleteContactDialog(val contactId: String) : Command()
+        object AccessCallPhonePermissions : Command()
+        class CallPhone(val number: String) : Command()
     }
 }

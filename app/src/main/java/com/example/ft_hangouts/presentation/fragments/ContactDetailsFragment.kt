@@ -1,14 +1,17 @@
 package com.example.ft_hangouts.presentation.fragments
 
+import android.Manifest
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
 import androidx.core.view.isVisible
 import com.example.ft_hangouts.databinding.FragmentContactDetailBinding
 import com.example.ft_hangouts.domain.models.ColorState
 import com.example.ft_hangouts.getColor
+import com.example.ft_hangouts.presentation.activities.MainActivity
 import com.example.ft_hangouts.presentation.dialog.DialogCreator
 import com.example.ft_hangouts.presentation.fragments.base.BaseViewModelFragment
 import com.example.ft_hangouts.presentation.models.Contact
@@ -21,12 +24,23 @@ import com.example.ft_hangouts.updateMultiplyColor
 
 class ContactDetailsFragment : BaseViewModelFragment<
         ContactDetailState, FromContactDetails, FromContactDetails.Navigate,
-        ContactDetailsRouter, ContactDetailsViewModel>() {
+        ContactDetailsRouter, ContactDetailsViewModel>(), RegistrationActivityResult {
 
     private var binding: FragmentContactDetailBinding? = null
     private var dialog: DialogCreator? = null
 
     override val logTag: String = this::class.java.simpleName
+    private var requestPermissionForCallPhoneLauncher: ActivityResultLauncher<String>? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initActivityResultLaunchers()
+    }
+
+    private fun initActivityResultLaunchers() {
+        requestPermissionForCallPhoneLauncher =
+            registerForRequestPermissionResult(viewModel::onCallPhonePermissionResponse)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,6 +72,7 @@ class ContactDetailsFragment : BaseViewModelFragment<
         binding?.buttonEditContact?.setOnClickListener { viewModel.onEditContactClick() }
         binding?.buttonDelete?.setOnClickListener { viewModel.onDeleteContactClick() }
         binding?.buttonGoToChat?.setOnClickListener { viewModel.onIconChatClick() }
+        binding?.buttonCallToContact?.setOnClickListener { viewModel.onCallClick() }
     }
 
     override fun getViewModelClass(): Class<ContactDetailsViewModel> =
@@ -70,6 +85,8 @@ class ContactDetailsFragment : BaseViewModelFragment<
         when (destination) {
             is FromContactDetails.Command.OpenDeleteContactDialog ->
                 openDeleteContactDialog(destination.contactId)
+            is FromContactDetails.Command.AccessCallPhonePermissions -> accessCallPhonePermissions()
+            is FromContactDetails.Command.CallPhone -> callNumber(destination.number)
             is FromContactDetails.Navigate -> router.goToScreen(destination)
         }
 
@@ -78,6 +95,17 @@ class ContactDetailsFragment : BaseViewModelFragment<
             dialog?.showDeleteContactDialog(activity, viewModel::onContactDeletionConfirmed, contactId)
         }
     }
+
+    private fun accessCallPhonePermissions() {
+        requestPermissionForCallPhoneLauncher?.let { launcher ->
+            accessPermission(launcher, Manifest.permission.CALL_PHONE) {
+                viewModel.onCallPhonePermissionResponse(true)
+            }
+        }
+    }
+
+    private fun callNumber(number: String) =
+        (activity as MainActivity).callNumber(number)
 
     override fun updateColor(colorState: ColorState) {
         super.updateColor(colorState)

@@ -1,8 +1,5 @@
 package com.example.ft_hangouts.presentation.adapters.viewholders
 
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
-import androidx.annotation.ColorRes
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ft_hangouts.databinding.ItemContactBinding
 import com.example.ft_hangouts.presentation.models.Contact
@@ -14,13 +11,14 @@ class ContactViewHolder(private val binding: ItemContactBinding) :
 
     fun bind(
         contact: Contact,
-        chatIconClickListener: (Contact) -> Unit,
-        imgPersonClickListener: (Contact) -> Unit,
+        onChatIconClick: (Contact) -> Unit,
+        onImgPersonClick: (Contact) -> Unit,
+        onCallIconClick: (Contact) -> Unit,
         color: Int
     ) {
         setupViewText(contact)
         setupButtonColor(color)
-        setupClickListeners(chatIconClickListener, imgPersonClickListener, contact)
+        setupClickListeners(onChatIconClick, onImgPersonClick, onCallIconClick, contact)
     }
 
     private fun setupViewText(contact: Contact) =
@@ -30,16 +28,20 @@ class ContactViewHolder(private val binding: ItemContactBinding) :
         }
 
     private fun setupClickListeners(
-        chatIconClickListener: (Contact) -> Unit,
-        imgPersonClickListener: (Contact) -> Unit,
+        onChatIconClick: (Contact) -> Unit,
+        onImgPersonClick: (Contact) -> Unit,
+        onCallIconClick: (Contact) -> Unit,
         contact: Contact
     ) =
         binding.apply {
             buttonGoToChat.setOnClickListener {
-                chatIconClickListener(contact)
+                onChatIconClick(contact)
             }
             imgPerson.setOnClickListener {
-                imgPersonClickListener(contact)
+                onImgPersonClick(contact)
+            }
+            buttonCallToContact.setOnClickListener {
+                onCallIconClick(contact)
             }
         }
 

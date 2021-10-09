@@ -14,7 +14,7 @@ class ContactsBookViewModel(
     private val mapper: ContactMapper,
 ) : BaseViewModel<List<Contact>, FromContactsBook>(interactor, listOf()) {
 
-    var hasPermissionToGetSms: Boolean = false
+    private var callPhone: String? = null
 
     override fun init() {
         super.init()
@@ -52,8 +52,20 @@ class ContactsBookViewModel(
             )
         )
 
+    fun onCallClick(contact: Contact) {
+        callPhone = contact.number
+        updateAction(FromContactsBook.Command.AccessCallPhonePermissions)
+    }
+
+    fun onCallPhonePermissionResponse(isGranted: Boolean) {
+        if (isGranted) {
+            callPhone?.let { number ->
+                updateAction(FromContactsBook.Command.CallPhone(number))
+            }
+        }
+    }
+
     fun onGetSmsPermissionResponse(isGranted: Boolean) {
-        hasPermissionToGetSms = isGranted
     }
 
     override fun goToPrevious() =

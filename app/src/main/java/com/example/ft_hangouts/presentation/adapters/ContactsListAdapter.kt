@@ -9,8 +9,9 @@ import com.example.ft_hangouts.presentation.adapters.viewholders.ContactViewHold
 import com.example.ft_hangouts.presentation.models.Contact
 
 class ContactsListAdapter(
-    private val chatIconClickListener: (Contact) -> Unit,
-    private val imgPersonClickListener: (Contact) -> Unit,
+    private val onChatIconClick: (Contact) -> Unit,
+    private val onImgPersonClick: (Contact) -> Unit,
+    private val onCallIconClick: (Contact) -> Unit,
     private var colorItems: Int
 ) : ListAdapter<Contact, ContactViewHolder>(ContactItemDiff()) {
 
@@ -22,9 +23,10 @@ class ContactsListAdapter(
             )
         )
 
-    override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
-        holder.bind(getItem(position), chatIconClickListener, imgPersonClickListener, colorItems)
-    }
+    override fun onBindViewHolder(holder: ContactViewHolder, position: Int) =
+        holder.bind(
+            getItem(position), onChatIconClick, onImgPersonClick, onCallIconClick, colorItems
+        )
 
     fun updateColor(color: Int) {
         colorItems = color

@@ -1,9 +1,8 @@
 package com.example.ft_hangouts.presentation.activities
 
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -22,13 +21,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: RootViewModel
     private lateinit var intentFilter: IntentFilter
-
-//    private val intentReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-//        override fun onReceive(context: Context, intent: Intent) {
-//            viewModel.onSmsReceive(intent)
-//            onResume()
-//        }
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,16 +73,19 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp()
                 || super.onSupportNavigateUp()
     }
-//
+
     override fun onResume() {
         super.onResume()
         viewModel.onActivityResume()
-//        registerReceiver(intentReceiver, intentFilter)
     }
 
     override fun onPause() {
         super.onPause()
         viewModel.onActivityPause()
-//        unregisterReceiver(intentReceiver)
+    }
+
+    fun callNumber(number: String) {
+        val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:$number"))
+        startActivity(intent)
     }
 }

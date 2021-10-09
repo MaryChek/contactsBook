@@ -8,6 +8,7 @@ import com.example.ft_hangouts.domain.interactors.ContactsInteractor
 import com.example.ft_hangouts.presentation.models.Contact
 import com.example.ft_hangouts.presentation.models.ContactDetailState
 import com.example.ft_hangouts.presentation.navigation.FromContactDetails
+import com.example.ft_hangouts.presentation.navigation.FromContactsBook
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseViewModel
 
 class ContactDetailsViewModel(override val interactor: ContactsInteractor)
@@ -50,9 +51,20 @@ class ContactDetailsViewModel(override val interactor: ContactsInteractor)
             updateAction(FromContactDetails.Command.OpenDeleteContactDialog(contactId))
         } ?: Log.e(logTag, "missing contact id")
 
+    fun onCallClick() =
+        updateAction(FromContactDetails.Command.AccessCallPhonePermissions)
+
     fun onContactDeletionConfirmed(contactId: String) {
         interactor.removeContactById(contactId)
         goToPrevious()
+    }
+
+    fun onCallPhonePermissionResponse(isGranted: Boolean) {
+        if (isGranted) {
+            model.number?.let { number ->
+                updateAction(FromContactDetails.Command.CallPhone(number))
+            }
+        }
     }
 
     private fun getBundleForContactModel(contact: Contact): Bundle =
