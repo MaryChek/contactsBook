@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.example.ft_hangouts.databinding.FragmentContactDetailBinding
+import com.example.ft_hangouts.domain.models.ColorState
+import com.example.ft_hangouts.getColor
 import com.example.ft_hangouts.presentation.dialog.DialogCreator
 import com.example.ft_hangouts.presentation.fragments.base.BaseViewModelFragment
 import com.example.ft_hangouts.presentation.models.Contact
@@ -14,6 +16,7 @@ import com.example.ft_hangouts.presentation.models.ContactDetailState
 import com.example.ft_hangouts.presentation.navigation.FromContactDetails
 import com.example.ft_hangouts.presentation.navigation.router.ContactDetailsRouter
 import com.example.ft_hangouts.presentation.viewmodels.ContactDetailsViewModel
+import com.example.ft_hangouts.updateColor
 
 class ContactDetailsFragment : BaseViewModelFragment<
         ContactDetailState, FromContactDetails, FromContactDetails.Navigate,
@@ -73,6 +76,18 @@ class ContactDetailsFragment : BaseViewModelFragment<
         activity?.let { activity ->
             dialog?.showDeleteContactDialog(activity, viewModel::onContactDeletionConfirmed, contactId)
         }
+    }
+
+    override fun updateColor(colorState: ColorState) {
+        super.updateColor(colorState)
+        val color: Int = getColor(colorState.colorResId)
+        binding?.buttonGoToChat?.updateColor(color)
+        binding?.buttonCallToContact?.updateColor(color)
+        binding?.buttonDelete?.updateColor(color)
+        binding?.buttonEditContact?.updateColor(color)
+        binding?.tvEmail?.setTextColor(color)
+        binding?.tvName?.setTextColor(color)
+        binding?.tvNumber?.setTextColor(color)
     }
 
     override fun updateScreen(model: ContactDetailState) {

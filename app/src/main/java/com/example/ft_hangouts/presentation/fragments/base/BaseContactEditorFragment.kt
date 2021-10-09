@@ -9,11 +9,14 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.CallSuper
 import androidx.annotation.StringRes
 import com.example.ft_hangouts.databinding.FragmentContactEditorBinding
+import com.example.ft_hangouts.domain.models.ColorState
+import com.example.ft_hangouts.getColor
 import com.example.ft_hangouts.presentation.fragments.RegistrationActivityResult
 import com.example.ft_hangouts.presentation.models.ContactState
 import com.example.ft_hangouts.presentation.navigation.base.BaseNavigation
 import com.example.ft_hangouts.presentation.navigation.router.BaseRouter
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseContactEditorViewModel
+import com.example.ft_hangouts.updateColor
 
 abstract class BaseContactEditorFragment<
         FromScreen : BaseNavigation,
@@ -79,6 +82,12 @@ abstract class BaseContactEditorFragment<
         binding?.edtLastName?.setOnTextSubmitListener(viewModel::onLastNameSubmit)
         binding?.edtNumber?.setOnTextSubmitListener(viewModel::onNumberSubmit)
         binding?.edtEmail?.setOnTextSubmitListener(viewModel::onEmailSubmit)
+    }
+
+    override fun updateColor(colorState: ColorState) {
+        super.updateColor(colorState)
+        val color: Int = getColor(colorState.colorResId)
+        binding?.buttonAddPhoto?.updateColor(color)
     }
 
     override fun onDestroyView() {

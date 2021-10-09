@@ -10,6 +10,8 @@ import android.view.inputmethod.EditorInfo
 import androidx.activity.result.ActivityResultLauncher
 import androidx.navigation.fragment.findNavController
 import com.example.ft_hangouts.databinding.FragmentContactChatBinding
+import com.example.ft_hangouts.domain.models.ColorState
+import com.example.ft_hangouts.getColor
 import com.example.ft_hangouts.presentation.adapters.MessagesListAdapter
 import com.example.ft_hangouts.presentation.fragments.base.BaseContactWithEditTextFragment
 import com.example.ft_hangouts.presentation.models.ChatState
@@ -17,6 +19,7 @@ import com.example.ft_hangouts.presentation.models.Contact
 import com.example.ft_hangouts.presentation.navigation.FromContactChat
 import com.example.ft_hangouts.presentation.navigation.router.ContactChatRouter
 import com.example.ft_hangouts.presentation.viewmodels.ContactChatViewModel
+import com.example.ft_hangouts.updateColor
 
 class ContactChatFragment : BaseContactWithEditTextFragment<
         ChatState, FromContactChat, FromContactChat.Navigate,
@@ -49,7 +52,6 @@ class ContactChatFragment : BaseContactWithEditTextFragment<
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.init()
         initButtonClickListener()
         initEditTextSubmitListeners()
         initMessageList()
@@ -120,6 +122,12 @@ class ContactChatFragment : BaseContactWithEditTextFragment<
     private fun clearEditTextAndSetEditorAction() {
         binding?.input?.onEditorAction(EditorInfo.IME_ACTION_SEND)
         binding?.input?.text?.clear()
+    }
+
+    override fun updateColor(colorState: ColorState) {
+        super.updateColor(colorState)
+        val color: Int = getColor(colorState.colorResId)
+        binding?.buttonSend?.updateColor(color)
     }
 
     override fun onDestroy() {

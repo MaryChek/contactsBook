@@ -85,6 +85,7 @@ abstract class BaseViewModelFragment<
         setupObservers()
         router = getNavRouter()
         initOnBackPressedListener()
+        viewModel.init()
     }
 
     private fun setupObservers() {

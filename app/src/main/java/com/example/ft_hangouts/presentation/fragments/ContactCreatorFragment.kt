@@ -19,11 +19,6 @@ class ContactCreatorFragment : BaseContactEditorFragment<
 
     override val logTag: String = this::class.java.simpleName
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.init()
-    }
-
     override fun getViewModelClass(): Class<ContactCreatorViewModel> =
         ContactCreatorViewModel::class.java
 

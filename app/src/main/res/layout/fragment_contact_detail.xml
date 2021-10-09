@@ -93,7 +93,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:maxImageSize="36dp"
         app:srcCompat="@drawable/ic_edit"
-        app:tint="@color/colorPrimaryDark" />
+        app:tint="@color/colorPrimary" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -113,7 +113,7 @@
             app:backgroundTint="@color/controlNormal"
             app:maxImageSize="40dp"
             app:srcCompat="@drawable/ic_phone_call"
-            app:tint="@color/colorPrimaryDark" />
+            app:tint="@color/colorPrimary" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/buttonGoToChat"
@@ -125,8 +125,7 @@
             app:backgroundTint="@color/controlNormal"
             app:maxImageSize="40dp"
             app:srcCompat="@drawable/ic_message"
-            app:tint="@color/colorPrimaryDark" />
-
+            app:tint="@color/colorPrimary" />
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -140,6 +139,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="40dp"
         app:srcCompat="@drawable/ic_delete"
-        app:tint="@color/colorPrimaryDark" />
-
+        app:tint="@color/colorPrimary" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,7 +46,6 @@ class ContactsBookFragment : BaseViewModelFragment<
         super.onViewCreated(view, savedInstanceState)
         initButtonCreateNewContactClickListener()
         initContactList()
-        viewModel.init()
     }
 //
 //    override fun onResume() {
