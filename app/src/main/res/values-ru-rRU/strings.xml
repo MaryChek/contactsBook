@@ -25,6 +25,7 @@
     <string name="cancel">Отмена</string>
     <string name="chat_input">Введите техт</string>
     <string name="error_send_message">Вы не можете отправлять сообщения</string>
+    <string name="details">Детали</string>
 
     <plurals name="message_background_time">
         <item quantity="one">Вы отсутсвовали %1$d секунду</item>

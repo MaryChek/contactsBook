@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.ft_hangouts.databinding.FragmentContactChatBinding
 import com.example.ft_hangouts.domain.models.ColorState
 import com.example.ft_hangouts.getColor
+import com.example.ft_hangouts.presentation.activities.MainActivity
 import com.example.ft_hangouts.presentation.adapters.MessagesListAdapter
 import com.example.ft_hangouts.presentation.fragments.base.BaseContactWithEditTextFragment
 import com.example.ft_hangouts.presentation.models.ChatState
@@ -68,9 +69,14 @@ class ContactChatFragment : BaseContactWithEditTextFragment<
             arguments?.getSerializable(Contact::class.java.simpleName) as Contact?
         if (contact != null) {
             viewModel.fetchAllMessages(contact)
+            setToolbarTitle(contact.name ?: contact.number ?: "")
         } else {
             Log.e(logTag, "Missing Contact")
         }
+    }
+
+    private fun setToolbarTitle(title: String) {
+        (activity as MainActivity).supportActionBar?.title = title
     }
 
     private fun initButtonClickListener() {
@@ -107,8 +113,6 @@ class ContactChatFragment : BaseContactWithEditTextFragment<
                 accessSendSmsPermissions()
             is FromContactChat.Command.ShowErrorMessage ->
                 showErrorMessage(destination.errorMessage)
-            else -> {
-            }
         }
 
     private fun accessSendSmsPermissions() {

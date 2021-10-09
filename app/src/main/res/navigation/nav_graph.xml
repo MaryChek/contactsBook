@@ -33,7 +33,7 @@
     <fragment
         android:id="@+id/ContactDetailsFragment"
         android:name="com.example.ft_hangouts.presentation.fragments.ContactDetailsFragment"
-        android:label="Contact Details"
+        android:label="@string/details"
         tools:layout="@layout/fragment_contact_detail">
 
         <action

@@ -1,6 +1,5 @@
 package com.example.ft_hangouts.presentation.models
 
-import androidx.annotation.ColorRes
 import java.io.Serializable
 
 open class Contact(

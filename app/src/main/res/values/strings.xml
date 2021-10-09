@@ -25,6 +25,7 @@
     <string name="cancel">Cancel</string>
     <string name="chat_input">Enter text</string>
     <string name="error_send_message">You can\'t send messages</string>
+    <string name="details">Details</string>
 
     <plurals name="message_background_time">
         <item quantity="one">You were away for %1$d second</item>

@@ -12,7 +12,6 @@ sealed class FromContactChat : BaseNavigation {
     sealed class Command : BaseNavigation.Command, FromContactChat() {
         object ClearEditTextAndSetEditorAction : Command()
         object AccessSendSmsPermissions : Command()
-        object AccessGetSmsPermissions : Command()//TODO move to baseFragment
         class ShowErrorMessage(@StringRes val errorMessage: Int) : Command()
     }
 }
