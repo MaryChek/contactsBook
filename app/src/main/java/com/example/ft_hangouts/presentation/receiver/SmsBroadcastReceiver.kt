@@ -6,6 +6,7 @@ import android.content.Intent
 import android.telephony.SmsMessage
 import android.util.Log
 import com.example.ft_hangouts.domain.interactors.GetMessage
+import com.example.ft_hangouts.domain.interactors.MainInteractor
 import com.example.ft_hangouts.presentation.App
 import com.example.ft_hangouts.presentation.receiver.model.Sms
 import java.lang.IllegalArgumentException
@@ -51,7 +52,7 @@ class SmsBroadcastReceiver : BroadcastReceiver() {
     private fun onSmsReceive(sms: Sms, context: Context?) {
         val app: App? = context?.applicationContext as App?
         app?.let {
-            val interactor: GetMessage = it.interactor
+            val interactor: MainInteractor = it.interactor
             interactor.getMessage(sms)
         }
     }

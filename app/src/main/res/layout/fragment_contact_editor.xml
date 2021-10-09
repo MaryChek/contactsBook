@@ -6,26 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".presentation.fragments.ContactCreatorFragment">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/buttonAddPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        app:backgroundTint="@color/controlNormal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:maxImageSize="30dp"
-        app:srcCompat="@drawable/ic_camera"
-        app:tint="@color/colorPrimary" />
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayoutName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/buttonAddPhoto">
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtName"

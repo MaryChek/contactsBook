@@ -1,7 +1,6 @@
 package com.example.ft_hangouts.presentation.fragments.base
 
 import android.app.Activity
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
@@ -43,6 +42,4 @@ abstract class BaseContactWithEditTextFragment<
             activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?
         inputManager?.hideSoftInputFromWindow(activity?.currentFocus?.windowToken, 0)
     }
-
-    companion object
 }

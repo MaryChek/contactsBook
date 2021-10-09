@@ -11,8 +11,7 @@ import com.example.ft_hangouts.presentation.navigation.base.BaseNavigation
 import com.example.ft_hangouts.presentation.views.controllers.SingleEventLiveData
 
 abstract class BaseViewModel<Model : Any, Navigation : BaseNavigation>(
-    protected open val interactor: ColorInteractor,
-    initModel: Model
+    private val interactor: ColorInteractor, initModel: Model
 ) : ViewModel() {
     protected var model: Model = initModel
 
@@ -28,7 +27,7 @@ abstract class BaseViewModel<Model : Any, Navigation : BaseNavigation>(
     }
 
     @CallSuper
-    open fun init() {
+    open fun onViewCreated() {
         val color: Color = interactor.getColor()
         updateColorIfRequired(color)
     }

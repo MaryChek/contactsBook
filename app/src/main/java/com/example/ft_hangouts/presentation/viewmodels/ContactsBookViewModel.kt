@@ -3,25 +3,37 @@ package com.example.ft_hangouts.presentation.viewmodels
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import com.example.ft_hangouts.R
-import com.example.ft_hangouts.domain.interactors.ContactsInteractor
+import com.example.ft_hangouts.domain.interactors.ColorInteractor
+import com.example.ft_hangouts.domain.interactors.ContactInteractor
 import com.example.ft_hangouts.presentation.mappers.ContactMapper
 import com.example.ft_hangouts.presentation.models.Contact
 import com.example.ft_hangouts.presentation.navigation.FromContactsBook
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseViewModel
 
 class ContactsBookViewModel(
-    override val interactor: ContactsInteractor,
+    colorInteractor: ColorInteractor,
+    private val interactor: ContactInteractor,
     private val mapper: ContactMapper,
-) : BaseViewModel<List<Contact>, FromContactsBook>(interactor, listOf()) {
+) : BaseViewModel<List<Contact>, FromContactsBook>(colorInteractor, listOf()) {
 
     private var callPhone: String? = null
 
-    override fun init() {
-        super.init()
+    override fun onViewCreated() {
+        super.onViewCreated()
+        setOnNewContactCreatedListener()
+        fetchContacts()
+        updateAction(FromContactsBook.Command.AccessGetSmsPermissions)
+    }
+
+    private fun setOnNewContactCreatedListener() =
+        interactor.setOnNewContactCreatedListener {
+            fetchContacts()
+        }
+
+    private fun fetchContacts() {
         val contacts = interactor.getAllContacts()
         val currentContacts: List<Contact> = mapper.mapContacts(contacts)
         updateModel(currentContacts)
-        updateAction(FromContactsBook.Command.AccessGetSmsPermissions)
     }
 
     private fun updateModel(contacts: List<Contact>) {
@@ -63,9 +75,6 @@ class ContactsBookViewModel(
                 updateAction(FromContactsBook.Command.CallPhone(number))
             }
         }
-    }
-
-    fun onGetSmsPermissionResponse(isGranted: Boolean) {
     }
 
     override fun goToPrevious() =

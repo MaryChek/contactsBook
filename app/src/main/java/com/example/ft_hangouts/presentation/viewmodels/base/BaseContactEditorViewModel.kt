@@ -1,16 +1,17 @@
 package com.example.ft_hangouts.presentation.viewmodels.base
 
-import android.net.Uri
 import android.util.Log
-import com.example.ft_hangouts.domain.interactors.ContactsInteractor
+import com.example.ft_hangouts.domain.interactors.ColorInteractor
+import com.example.ft_hangouts.domain.interactors.ContactInteractor
 import com.example.ft_hangouts.presentation.models.Contact
 import com.example.ft_hangouts.presentation.models.ContactState
 import com.example.ft_hangouts.presentation.navigation.base.BaseNavigation
 import java.lang.IllegalArgumentException
 
 abstract class BaseContactEditorViewModel<FromScreen : BaseNavigation>(
-    override val interactor: ContactsInteractor
-) : BaseViewModel<ContactState, FromScreen>(interactor, ContactState()) {
+    colorInteractor: ColorInteractor,
+    protected val interactor: ContactInteractor
+) : BaseViewModel<ContactState, FromScreen>(colorInteractor, ContactState()) {
 
     open val logTag: String = this::class.java.simpleName
 
@@ -49,8 +50,6 @@ abstract class BaseContactEditorViewModel<FromScreen : BaseNavigation>(
 
     abstract fun onContactCorrect()
 
-    abstract fun onAddPhotoClick()
-
     fun onNameSubmit(name: String) =
         updateModel(personName = name)
 
@@ -73,13 +72,4 @@ abstract class BaseContactEditorViewModel<FromScreen : BaseNavigation>(
     abstract fun isNumberIndividual(number: String): Boolean
 
     abstract fun showMessageError()
-
-    open fun onTakePicture(imageUri: Uri) =
-        Unit
-
-    open fun onReadStoragePermissionResponse(isGranted: Boolean) =
-        Unit
-
-    open fun onWriteStoragePermissionResponse(isGranted: Boolean) =
-        Unit
 }

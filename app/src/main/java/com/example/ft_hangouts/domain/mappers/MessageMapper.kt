@@ -36,12 +36,4 @@ class MessageMapper {
             UserType.ThirdPartyUser,
             sms.timeSend
         )
-
-    fun mapColor(color: Int): ColorState.Color =
-        when (color) {
-            ColorState.Color.Green.ordinal -> ColorState.Color.Green
-            ColorState.Color.Blue.ordinal -> ColorState.Color.Blue
-            ColorState.Color.Red.ordinal -> ColorState.Color.Red
-            else -> ColorState.Color.Purple
-        }
 }

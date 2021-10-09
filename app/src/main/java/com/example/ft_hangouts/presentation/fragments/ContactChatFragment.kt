@@ -69,7 +69,7 @@ class ContactChatFragment : BaseContactWithEditTextFragment<
             arguments?.getSerializable(Contact::class.java.simpleName) as Contact?
         if (contact != null) {
             viewModel.fetchAllMessages(contact)
-            setToolbarTitle(contact.name ?: contact.number ?: "")
+            setToolbarTitle(contact.name ?: "")
         } else {
             Log.e(logTag, "Missing Contact")
         }
@@ -85,12 +85,13 @@ class ContactChatFragment : BaseContactWithEditTextFragment<
         }
     }
 
-    private fun initEditTextSubmitListeners() {
+    private fun initEditTextSubmitListeners() =
         binding?.input?.setOnTextSubmitListener(
             viewModel::onMessageSubmit,
-            shouldDoBasicActionByActionId = { actionId -> actionId == EditorInfo.IME_ACTION_DONE }
+            shouldDoBasicActionByActionId = { actionId ->
+                actionId == EditorInfo.IME_ACTION_DONE
+            }
         )
-    }
 
     override fun updateScreen(model: ChatState) {
         adapter?.submitList(model.listMessage)

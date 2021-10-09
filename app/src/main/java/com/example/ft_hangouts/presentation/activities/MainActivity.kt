@@ -13,6 +13,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.ft_hangouts.R
 import com.example.ft_hangouts.databinding.ActivityMainBinding
 import com.example.ft_hangouts.presentation.App
+import com.example.ft_hangouts.presentation.fragments.RegistrationActivityResult
 import com.example.ft_hangouts.presentation.navigation.FromMainActivity
 import com.example.ft_hangouts.presentation.viewmodels.RootViewModel
 
@@ -20,7 +21,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: RootViewModel
-    private lateinit var intentFilter: IntentFilter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         createViewModel()
         setupObserves()
         initNavigation()
-        initIntentFilter()
     }
 
     private fun createViewModel() {
@@ -61,11 +60,6 @@ class MainActivity : AppCompatActivity() {
     private fun initNavigation() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         setupActionBarWithNavController(navController)
-    }
-
-    private fun initIntentFilter() {
-        intentFilter = IntentFilter()
-        intentFilter.addAction("SMS_RECEIVED_ACTION")
     }
 
     override fun onSupportNavigateUp(): Boolean {

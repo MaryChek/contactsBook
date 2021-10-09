@@ -1,8 +1,6 @@
 package com.example.ft_hangouts.presentation.fragments
 
 import android.Manifest
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import androidx.activity.result.ActivityResultLauncher
@@ -34,8 +32,7 @@ class ContactsBookFragment : BaseViewModelFragment<
     }
 
     private fun initActivityResultLaunchers() {
-        requestPermissionForGetSmsLauncher =
-            registerForRequestPermissionResult(viewModel::onGetSmsPermissionResponse)
+        requestPermissionForGetSmsLauncher = registerForRequestPermissionResult()
         requestPermissionForCallPhoneLauncher =
             registerForRequestPermissionResult(viewModel::onCallPhonePermissionResponse)
     }
@@ -53,11 +50,6 @@ class ContactsBookFragment : BaseViewModelFragment<
         initButtonCreateNewContactClickListener()
         initContactList()
     }
-//
-//    override fun onResume() {
-//        super.onResume()
-//        viewModel.init()
-//    }
 
     private fun initButtonCreateNewContactClickListener() {
         binding?.buttonCreateNewContact?.setOnClickListener { viewModel.onButtonCreateNewContactClick() }
@@ -94,21 +86,13 @@ class ContactsBookFragment : BaseViewModelFragment<
         adapter?.submitList(model)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
-        requestPermissionForGetSmsLauncher = null
-    }
-
     private fun closeActivity() {
         activity?.finish()
     }
 
     private fun accessGetSmsPermissions() {
         requestPermissionForGetSmsLauncher?.let { launcher ->
-            accessPermission(launcher, Manifest.permission.RECEIVE_SMS) {
-                viewModel.onGetSmsPermissionResponse(true)
-            }
+            accessPermission(launcher, Manifest.permission.RECEIVE_SMS)
         }
     }
 
@@ -128,5 +112,10 @@ class ContactsBookFragment : BaseViewModelFragment<
         val color = getColor(colorState.colorResId)
         binding?.buttonCreateNewContact?.updateColor(color)
         adapter?.updateColor(color)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 }

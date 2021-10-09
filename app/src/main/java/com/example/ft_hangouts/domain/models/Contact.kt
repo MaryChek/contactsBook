@@ -23,7 +23,7 @@ class Contact(
         }
 
     private fun String.isConsistOnlyDigits(): Boolean =
-        if (first() == '+') {
+        if (isNotBlank() && first() == '+') {
             getWithoutFirst().isDigitsOnly()
         } else {
             isDigitsOnly()

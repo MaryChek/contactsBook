@@ -4,7 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.core.os.bundleOf
 import com.example.ft_hangouts.R
-import com.example.ft_hangouts.domain.interactors.ContactsInteractor
+import com.example.ft_hangouts.domain.interactors.ColorInteractor
+import com.example.ft_hangouts.domain.interactors.ContactInteractor
 import com.example.ft_hangouts.presentation.mappers.ContactMapper
 import com.example.ft_hangouts.domain.models.Contact as DomainContact
 import com.example.ft_hangouts.presentation.models.Contact
@@ -13,9 +14,10 @@ import com.example.ft_hangouts.presentation.viewmodels.base.BaseContactEditorVie
 import java.lang.IllegalArgumentException
 
 class ContactEditorViewModel(
-    interactor: ContactsInteractor,
+    colorInteractor: ColorInteractor,
+    interactor: ContactInteractor,
     private val mapper: ContactMapper,
-) : BaseContactEditorViewModel<FromContactEditor>(interactor) {
+) : BaseContactEditorViewModel<FromContactEditor>(colorInteractor, interactor) {
 
     override val logTag: String = this::class.java.simpleName
 
@@ -53,8 +55,6 @@ class ContactEditorViewModel(
                 getBundleForContactModel(contact)
             )
         )
-
-    override fun onAddPhotoClick() {}
 
     override fun isNumberIndividual(number: String): Boolean =
         interactor.isNumberIndividual(number, unlessId = model.contact?.id)

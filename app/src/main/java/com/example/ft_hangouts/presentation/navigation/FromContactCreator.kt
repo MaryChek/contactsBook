@@ -14,11 +14,5 @@ sealed class FromContactCreator: BaseNavigation {
 
     sealed class Command : BaseNavigation.Command, FromContactCreator() {
         class ShowErrorMessage(@StringRes val errorMessageResId: Int): Command()
-
-        object TakePictureFromGallery: Command()
-
-        object AccessWritePermissions: Command()
-
-        object AccessReadPermissions: Command()
     }
 }

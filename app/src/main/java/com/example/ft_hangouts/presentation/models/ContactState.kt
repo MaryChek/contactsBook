@@ -14,14 +14,13 @@ class ContactState(
     val isContactCorrect: Boolean =
         contact != null && isNameNotEmpty && isNumberNotEmpty && isNumberIndividual && isNumberCorrect
 
-    val hesImage: Boolean = contact?.imagePath != null
-
     @StringRes
-    val errorMessageResId: Int = when {
-        !isNameNotEmpty -> R.string.empty_name_error_message
-        !isNumberIndividual -> R.string.invalid_number_error_message
-        !isNumberCorrect -> R.string.incorrect_number_error_message
-        contact != null && contact.number == null -> R.string.empty_number_error_message
-        else -> R.string.empty_string
-    }
+    val errorMessageResId: Int =
+        when {
+            !isNameNotEmpty -> R.string.empty_name_error_message
+            !isNumberIndividual -> R.string.invalid_number_error_message
+            !isNumberCorrect -> R.string.incorrect_number_error_message
+            contact != null && contact.number.isNullOrBlank() -> R.string.empty_number_error_message
+            else -> R.string.empty_string
+        }
 }

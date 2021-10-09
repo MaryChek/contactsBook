@@ -50,7 +50,6 @@ abstract class BaseViewModelFragment<
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_main, menu)
-//        menu.clear()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -85,7 +84,7 @@ abstract class BaseViewModelFragment<
         setupObservers()
         router = getNavRouter()
         initOnBackPressedListener()
-        viewModel.init()
+        viewModel.onViewCreated()
     }
 
     private fun setupObservers() {
@@ -105,15 +104,6 @@ abstract class BaseViewModelFragment<
     }
 
     abstract fun navigateTo(destination: FromScreen)
-//
-//    protected fun navigate(@IdRes navigateToId: Int, arguments: Bundle? = null) =
-//        findNavController().navigate(navigateToId, arguments)
-//
-//    protected open fun navigateToPrevious(@IdRes navigateToId: Int) =
-//        findNavController().popBackStack(navigateToId, true)
-//
-//    protected open fun navigateToPrevious() =
-//        findNavController().navigate(R.id.go_to_previous)
 
     protected open fun updateScreen(model: Model) =
         Unit
@@ -141,17 +131,16 @@ abstract class BaseViewModelFragment<
     protected fun accessPermission(
         permissionLauncher: ActivityResultLauncher<String>,
         permission: String,
-        onResponseSuccess: () -> Unit,
+        onResponseSuccess: (() -> Unit)? = null,
     ) {
         try {
             if (isPermissionDenied(permission)) {
                 permissionLauncher.launch(permission)
             } else {
-                onResponseSuccess()
+                onResponseSuccess?.invoke()
             }
         } catch (e: IllegalStateException) {
             Log.e(logTag, "Context is null", e)
-            //TODO show something wrong try again
         }
     }
 

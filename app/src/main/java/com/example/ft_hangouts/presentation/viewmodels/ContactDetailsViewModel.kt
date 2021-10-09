@@ -4,15 +4,17 @@ import android.os.Bundle
 import android.util.Log
 import androidx.core.os.bundleOf
 import com.example.ft_hangouts.R
-import com.example.ft_hangouts.domain.interactors.ContactsInteractor
+import com.example.ft_hangouts.domain.interactors.ColorInteractor
+import com.example.ft_hangouts.domain.interactors.ContactInteractor
 import com.example.ft_hangouts.presentation.models.Contact
 import com.example.ft_hangouts.presentation.models.ContactDetailState
 import com.example.ft_hangouts.presentation.navigation.FromContactDetails
-import com.example.ft_hangouts.presentation.navigation.FromContactsBook
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseViewModel
 
-class ContactDetailsViewModel(override val interactor: ContactsInteractor)
-    : BaseViewModel<ContactDetailState, FromContactDetails>(interactor, ContactDetailState(Contact())) {
+class ContactDetailsViewModel(
+    colorInteractor: ColorInteractor,
+    private val interactor: ContactInteractor,
+) : BaseViewModel<ContactDetailState, FromContactDetails>(colorInteractor, ContactDetailState(Contact())) {
 
     val logTag: String = ContactDetailsViewModel::class.java.simpleName
 
@@ -29,14 +31,13 @@ class ContactDetailsViewModel(override val interactor: ContactsInteractor)
     override fun goToPrevious() =
         updateAction(FromContactDetails.Navigate.PreviousScreen)
 
-    fun onEditContactClick() {
+    fun onEditContactClick() =
         updateAction(
             FromContactDetails.Navigate.ContactEditor(
                 R.id.open_ContactEditorFragment,
                 getBundleForContactModel(model)
             )
         )
-    }
 
     fun onIconChatClick() =
         updateAction(
