@@ -3,8 +3,10 @@ package com.example.ft_hangouts
 import android.annotation.SuppressLint
 import androidx.appcompat.app.ActionBar
 import android.content.Context
-import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.ColorDrawable
+import android.widget.ImageView
 import androidx.annotation.ColorRes
 import androidx.fragment.app.Fragment
 import java.text.SimpleDateFormat
@@ -31,3 +33,7 @@ fun ActionBar.changeColor(context: Context, @ColorRes colorResId: Int) {
 
 fun Fragment.getColor(@ColorRes colorResId: Int): Int =
     requireContext().getColor(colorResId)
+
+fun ImageView.updateColor(color: Int) {
+    colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
+}

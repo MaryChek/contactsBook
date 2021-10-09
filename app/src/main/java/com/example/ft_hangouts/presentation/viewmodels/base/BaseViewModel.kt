@@ -5,9 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.ft_hangouts.domain.interactors.ColorInteractor
-import com.example.ft_hangouts.domain.interactors.ContactsInteractor
-import com.example.ft_hangouts.presentation.models.ColorState
-import com.example.ft_hangouts.presentation.models.ColorState.Color
+import com.example.ft_hangouts.domain.models.ColorState
+import com.example.ft_hangouts.domain.models.ColorState.Color
 import com.example.ft_hangouts.presentation.navigation.base.BaseNavigation
 import com.example.ft_hangouts.presentation.views.controllers.SingleEventLiveData
 
@@ -42,7 +41,7 @@ abstract class BaseViewModel<Model : Any, Navigation : BaseNavigation>(
         modelUpdated.value = model
     }
 
-    fun goToScreen(destination: Navigation) {
+    fun updateAction(destination: Navigation) {
         actionMutableLiveData.value = destination
     }
 
@@ -86,7 +85,12 @@ abstract class BaseViewModel<Model : Any, Navigation : BaseNavigation>(
 
     private fun updateColor(color: Color) {
         colorState = ColorState(color)
-        interactor.setColor(color)
         updateColorState()
+        onColorUpdated()
+    }
+
+    @CallSuper
+    open fun onColorUpdated() {
+        interactor.setColor(colorState.color)
     }
 }

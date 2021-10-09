@@ -21,7 +21,7 @@ class ContactsBookViewModel(
         val contacts = interactor.getAllContacts()
         val currentContacts: List<Contact> = mapper.mapContacts(contacts)
         updateModel(currentContacts)
-        goToScreen(FromContactsBook.Command.AccessGetSmsPermissions)
+        updateAction(FromContactsBook.Command.AccessGetSmsPermissions)
     }
 
     private fun updateModel(contacts: List<Contact>) {
@@ -30,14 +30,14 @@ class ContactsBookViewModel(
     }
 
     fun onButtonCreateNewContactClick() =
-        goToScreen(
+        updateAction(
             FromContactsBook.Navigate.ContactCreator(
                 R.id.open_ContactCreatorFragment
             )
         )
 
     fun onIconChatClick(contact: Contact) =
-        goToScreen(
+        updateAction(
             FromContactsBook.Navigate.Chat(
                 R.id.open_ContactChatFragment,
                 getBundleForContactModel(contact)
@@ -45,7 +45,7 @@ class ContactsBookViewModel(
         )
 
     fun onImgContactClick(contact: Contact) =
-        goToScreen(
+        updateAction(
             FromContactsBook.Navigate.ContactDetails(
                 R.id.open_ContactDetailsFragment_from_ContactBook,
                 getBundleForContactModel(contact)
@@ -57,7 +57,7 @@ class ContactsBookViewModel(
     }
 
     override fun goToPrevious() =
-        goToScreen(FromContactsBook.Command.CloseActivity)
+        updateAction(FromContactsBook.Command.CloseActivity)
 
     private fun getBundleForContactModel(contact: Contact): Bundle =
         bundleOf(Contact::class.java.simpleName to contact)

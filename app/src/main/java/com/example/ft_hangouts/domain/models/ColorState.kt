@@ -1,4 +1,4 @@
-package com.example.ft_hangouts.presentation.models
+package com.example.ft_hangouts.domain.models
 
 import androidx.annotation.ColorRes
 import com.example.ft_hangouts.R

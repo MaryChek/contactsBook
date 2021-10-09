@@ -1,8 +1,6 @@
 package com.example.ft_hangouts.presentation.fragments.base
 
 import android.content.pm.PackageManager
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -22,7 +20,7 @@ import com.example.ft_hangouts.changeColor
 import com.example.ft_hangouts.getColor
 import com.example.ft_hangouts.presentation.App
 import com.example.ft_hangouts.presentation.activities.MainActivity
-import com.example.ft_hangouts.presentation.models.ColorState
+import com.example.ft_hangouts.domain.models.ColorState
 import com.example.ft_hangouts.presentation.navigation.base.BaseNavigation
 import com.example.ft_hangouts.presentation.navigation.base.GoToScreen
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseViewModel

@@ -47,7 +47,7 @@ class ContactEditorViewModel(
     }
 
     private fun goToUpdatedDetailContact(contact: Contact) =
-        goToScreen(
+        updateAction(
             FromContactEditor.Navigate.ContactDetail(
                 R.id.open_ContactDetailsFragment_from_ContactEditorFragment,
                 getBundleForContactModel(contact)
@@ -60,10 +60,10 @@ class ContactEditorViewModel(
         interactor.isNumberIndividual(number, unlessId = model.contact?.id)
 
     override fun showMessageError() =
-        goToScreen(FromContactEditor.Command.ShowErrorMessage(model.errorMessageResId))
+        updateAction(FromContactEditor.Command.ShowErrorMessage(model.errorMessageResId))
 
     override fun goToPrevious() =
-        goToScreen(FromContactEditor.Navigate.PreviousScreen)
+        updateAction(FromContactEditor.Navigate.PreviousScreen)
 
     private fun getBundleForContactModel(contact: Contact): Bundle =
         bundleOf(Contact::class.java.simpleName to contact)

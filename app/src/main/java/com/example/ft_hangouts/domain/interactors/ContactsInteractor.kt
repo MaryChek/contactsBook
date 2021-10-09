@@ -7,7 +7,7 @@ import com.example.ft_hangouts.data.storage.ColorStorage
 import com.example.ft_hangouts.domain.mappers.MessageMapper
 import com.example.ft_hangouts.domain.models.ChatMessage
 import com.example.ft_hangouts.domain.models.Contact
-import com.example.ft_hangouts.presentation.models.ColorState
+import com.example.ft_hangouts.domain.models.ColorState
 import com.example.ft_hangouts.presentation.receiver.model.Sms
 
 class ContactsInteractor(

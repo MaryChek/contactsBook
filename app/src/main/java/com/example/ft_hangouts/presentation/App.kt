@@ -10,7 +10,6 @@ import com.example.ft_hangouts.data.storage.ColorStorage
 import com.example.ft_hangouts.data.storage.Prefs
 import com.example.ft_hangouts.domain.interactors.ContactsInteractor
 import com.example.ft_hangouts.domain.mappers.MessageMapper
-import com.example.ft_hangouts.presentation.models.ColorState
 import com.example.ft_hangouts.presentation.viewmodels.factory.ContactViewModelFactory
 
 class App: Application() {

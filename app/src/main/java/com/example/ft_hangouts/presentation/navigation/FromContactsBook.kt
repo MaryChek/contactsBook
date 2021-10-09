@@ -1,6 +1,7 @@
 package com.example.ft_hangouts.presentation.navigation
 
 import android.os.Bundle
+import com.example.ft_hangouts.domain.models.ColorState
 import com.example.ft_hangouts.presentation.navigation.base.BaseNavigation
 
 sealed class FromContactsBook : BaseNavigation {
@@ -16,5 +17,6 @@ sealed class FromContactsBook : BaseNavigation {
     sealed class Command : BaseNavigation.Command, FromContactsBook() {
         object CloseActivity : Command()
         object AccessGetSmsPermissions : FromContactsBook()
+        class UpdateIconsColor(val color: ColorState.Color)
     }
 }

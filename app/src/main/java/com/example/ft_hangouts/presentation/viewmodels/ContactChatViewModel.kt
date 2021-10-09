@@ -20,7 +20,7 @@ class ContactChatViewModel(
     override fun init() {
         super.init()
         interactor.setOnNewMessageCreatedListener(this::onNewMessageCreated)
-        goToScreen(FromContactChat.Command.AccessSendSmsPermissions)
+        updateAction(FromContactChat.Command.AccessSendSmsPermissions)
     }
 
     private fun onNewMessageCreated(message: ChatMessage) {
@@ -68,7 +68,7 @@ class ContactChatViewModel(
     }
 
     private fun clearMessageLine() =
-        goToScreen(FromContactChat.Command.ClearEditTextAndSetEditorAction)
+        updateAction(FromContactChat.Command.ClearEditTextAndSetEditorAction)
 
     private fun sendMessage(currentMessage: String): Boolean {
         val chatMessage = ChatMessage(currentMessage)
@@ -81,7 +81,7 @@ class ContactChatViewModel(
                 interactor.sendMessage(chatMessage.messageText, number)
             } else {
                 Log.e(logTag, "not permission")
-                goToScreen(FromContactChat.Command.ShowErrorMessage(R.string.error_send_message))
+                updateAction(FromContactChat.Command.ShowErrorMessage(R.string.error_send_message))
             }
             true
         } else {
@@ -94,7 +94,7 @@ class ContactChatViewModel(
         updateModel(currentMessage = newMessage)
 
     override fun goToPrevious() =
-        goToScreen(FromContactChat.Navigate.PreviousScreen)
+        updateAction(FromContactChat.Navigate.PreviousScreen)
 
     private fun errorLogMissingId() =
         Log.e(logTag, "missing id")

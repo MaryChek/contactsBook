@@ -8,7 +8,6 @@ import com.example.ft_hangouts.domain.interactors.ContactsInteractor
 import com.example.ft_hangouts.presentation.models.Contact
 import com.example.ft_hangouts.presentation.models.ContactDetailState
 import com.example.ft_hangouts.presentation.navigation.FromContactDetails
-import com.example.ft_hangouts.presentation.navigation.FromContactsBook
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseViewModel
 
 class ContactDetailsViewModel(override val interactor: ContactsInteractor)
@@ -27,10 +26,10 @@ class ContactDetailsViewModel(override val interactor: ContactsInteractor)
     }
 
     override fun goToPrevious() =
-        goToScreen(FromContactDetails.Navigate.PreviousScreen)
+        updateAction(FromContactDetails.Navigate.PreviousScreen)
 
     fun onEditContactClick() {
-        goToScreen(
+        updateAction(
             FromContactDetails.Navigate.ContactEditor(
                 R.id.open_ContactEditorFragment,
                 getBundleForContactModel(model)
@@ -39,7 +38,7 @@ class ContactDetailsViewModel(override val interactor: ContactsInteractor)
     }
 
     fun onIconChatClick() =
-        goToScreen(
+        updateAction(
             FromContactDetails.Navigate.Chat(
                 R.id.open_ContactChatFragment,
                 getBundleForContactModel(model)
@@ -48,7 +47,7 @@ class ContactDetailsViewModel(override val interactor: ContactsInteractor)
 
     fun onDeleteContactClick() =
         model.id?.let { contactId ->
-            goToScreen(FromContactDetails.Command.OpenDeleteContactDialog(contactId))
+            updateAction(FromContactDetails.Command.OpenDeleteContactDialog(contactId))
         } ?: Log.e(logTag, "missing contact id")
 
     fun onContactDeletionConfirmed(contactId: String) {

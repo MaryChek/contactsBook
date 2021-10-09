@@ -22,7 +22,7 @@ class ContactCreatorViewModel(
 
     override fun onContactCorrect() {
         if (model.hesImage) {
-            goToScreen(FromContactCreator.Command.AccessWritePermissions)
+            updateAction(FromContactCreator.Command.AccessWritePermissions)
         }
         saveContact()
     }
@@ -35,7 +35,7 @@ class ContactCreatorViewModel(
     }
 
     override fun onAddPhotoClick() {
-        goToScreen(FromContactCreator.Command.AccessReadPermissions)
+        updateAction(FromContactCreator.Command.AccessReadPermissions)
     }
 
     override fun isNumberIndividual(number: String): Boolean =
@@ -43,7 +43,7 @@ class ContactCreatorViewModel(
 
     override fun onReadStoragePermissionResponse(isGranted: Boolean) {
         if (isGranted) {
-            goToScreen(FromContactCreator.Command.TakePictureFromGallery)
+            updateAction(FromContactCreator.Command.TakePictureFromGallery)
         } else {
             //TODO do something
         }
@@ -62,8 +62,8 @@ class ContactCreatorViewModel(
     }
 
     override fun goToPrevious() =
-        goToScreen(FromContactCreator.Navigate.PreviousScreen)
+        updateAction(FromContactCreator.Navigate.PreviousScreen)
 
     override fun showMessageError() =
-        goToScreen(FromContactCreator.Command.ShowErrorMessage(model.errorMessageResId))
+        updateAction(FromContactCreator.Command.ShowErrorMessage(model.errorMessageResId))
 }

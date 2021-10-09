@@ -1,16 +1,9 @@
 package com.example.ft_hangouts.presentation.viewmodels
 
-import android.content.Intent
-import android.util.Log
 import com.example.ft_hangouts.domain.interactors.ContactsInteractor
-import com.example.ft_hangouts.domain.mappers.MessageMapper
-import com.example.ft_hangouts.domain.models.ChatMessage
-import com.example.ft_hangouts.domain.models.Contact
-import com.example.ft_hangouts.domain.models.UserType
 import com.example.ft_hangouts.getSeconds
 import com.example.ft_hangouts.presentation.navigation.FromMainActivity
 import com.example.ft_hangouts.presentation.viewmodels.base.BaseViewModel
-import java.util.*
 
 class RootViewModel(
     override val interactor: ContactsInteractor,
@@ -57,7 +50,7 @@ class RootViewModel(
     fun onActivityResume() {
         backgroundTime?.let { time ->
             val howTime: Int = getSeconds() - time
-            goToScreen(FromMainActivity.Navigate.ShowToast(howTime))
+            updateAction(FromMainActivity.Navigate.ShowToast(howTime))
         }
     }
 

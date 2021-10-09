@@ -1,5 +1,6 @@
 package com.example.ft_hangouts.presentation.adapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -10,7 +11,8 @@ import com.example.ft_hangouts.presentation.models.Contact
 
 class ContactsListAdapter(
     private val chatIconClickListener: (Contact) -> Unit,
-    private val imgPersonClickListener: (Contact) -> Unit
+    private val imgPersonClickListener: (Contact) -> Unit,
+    private var colorItems: Int
 ) : ListAdapter<Contact, ContactViewHolder>(ContactItemDiff()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder =
@@ -22,6 +24,11 @@ class ContactsListAdapter(
         )
 
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
-        holder.bind(getItem(position), chatIconClickListener, imgPersonClickListener)
+        holder.bind(getItem(position), chatIconClickListener, imgPersonClickListener, colorItems)
+    }
+
+    fun updateColor(color: Int) {
+        colorItems = color
+        notifyDataSetChanged()
     }
 }
