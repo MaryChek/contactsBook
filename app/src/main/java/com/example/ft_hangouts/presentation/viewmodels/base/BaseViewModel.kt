@@ -3,6 +3,8 @@ package com.example.ft_hangouts.presentation.viewmodels.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.ft_hangouts.presentation.models.ColorState
+import com.example.ft_hangouts.presentation.models.ColorState.Color
 import com.example.ft_hangouts.presentation.navigation.base.BaseNavigation
 import com.example.ft_hangouts.presentation.views.controllers.SingleEventLiveData
 
@@ -15,6 +17,9 @@ abstract class BaseViewModel<Model : Any, Navigation : BaseNavigation>(
 
     val modelUpdated = MutableLiveData<Model>()
     val actionUpdated: LiveData<Navigation> = actionMutableLiveData
+    val colorStateUpdated = MutableLiveData<ColorState>()
+    protected var colorState = ColorState(Color.Purple)
+
 
     protected fun updateScreen() {
         modelUpdated.value = model
@@ -25,4 +30,45 @@ abstract class BaseViewModel<Model : Any, Navigation : BaseNavigation>(
     }
 
     abstract fun goToPrevious()
+
+    private fun updateColorState() {
+        colorStateUpdated.value = colorState
+    }
+
+    fun onRedColorSelected() {
+        if (colorState.isNotRed()) {
+            updateColor(Color.Red)
+        } else {
+            return
+        }
+    }
+
+    fun onBlueColorSelected() {
+        if (colorState.isNotBlue()) {
+            updateColor(Color.Blue)
+        } else {
+            return
+        }
+    }
+
+    fun onGreenColorSelected() {
+        if (colorState.isNotGreen()) {
+            updateColor(Color.Green)
+        } else {
+            return
+        }
+    }
+
+    fun onPurpleColorSelected() {
+        if (colorState.isNotPurple()) {
+            updateColor(Color.Purple)
+        } else {
+            return
+        }
+    }
+
+    private fun updateColor(color: Color) {
+        colorState = ColorState(color)
+        updateColorState()
+    }
 }

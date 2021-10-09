@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">ft_hangouts</string>
     <string name="new_contact">New Contact</string>
-    <string name="change_color">Change color</string>
+    <string name="change_to_purple">Purple</string>
+    <string name="change_to_blue">Blue</string>
+    <string name="change_to_red">Red</string>
+    <string name="change_to_green">Green</string>
     <string name="contacts_book">Contacts book</string>
     <string name="created_name_hint">Name</string>
     <string name="created_number_hint">Number</string>

@@ -3,22 +3,29 @@
     <style name="Theme.Ft_hangouts" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/controlNormal</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="colorSecondary">@color/colorPrimary</item>
         <item name="colorSecondaryVariant">@color/colorPrimaryDark</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">@color/colorSecondary</item>
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:popupBackground">@color/colorPrimary</item>
     </style>
 
     <style name="Theme.Ft_hangouts.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:popupBackground">@color/colorPrimary</item>
     </style>
 
     <style name="AppBar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="colorControlNormal">@color/white</item>
-        <item name="android:textColorPrimary">@color/white</item>
+        <item name="colorControlNormal">@color/controlNormal</item>
+        <item name="android:textColorPrimary">@color/appBarTextColor</item>
+        <item name="android:popupBackground">@color/colorPrimary</item>
+    </style>
+
+    <style name="PopupMenuStyle" parent="Theme.AppCompat.DayNight">
+        <item name="android:textColor">@color/colorSecondary</item>
     </style>
 
     <style name="TitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">

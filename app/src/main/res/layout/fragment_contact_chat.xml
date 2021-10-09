@@ -16,7 +16,7 @@
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_send"
-        app:backgroundTint="@color/white"
+        app:backgroundTint="@color/controlNormal"
         app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="@+id/input"
         app:layout_constraintEnd_toEndOf="@+id/rvMessages"

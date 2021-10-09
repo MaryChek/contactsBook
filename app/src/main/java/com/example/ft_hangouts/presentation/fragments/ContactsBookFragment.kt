@@ -38,18 +38,11 @@ class ContactsBookFragment : BaseViewModelFragment<
         binding = FragmentContactsBookBinding.inflate(inflater, container, false)
         return binding?.root
     }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_main, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.changeColor -> true //TODO open dialog change color
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
+//
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        super.onCreateOptionsMenu(menu, inflater)
+//        inflater.inflate(R.menu.menu_main, menu)
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

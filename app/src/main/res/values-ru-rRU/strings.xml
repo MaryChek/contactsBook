@@ -2,7 +2,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedQuantity">
     <string name="app_name">ft_hangouts</string>
     <string name="new_contact">Новый контакт</string>
-    <string name="change_color">Сменить цвет</string>
+    <string name="change_to_purple">Феолетовый</string>
+    <string name="change_to_blue">Синий</string>
+    <string name="change_to_red">Красный</string>
+    <string name="change_to_green">Зеленый</string>
     <string name="contacts_book">Контакты</string>
     <string name="created_name_hint">Имя</string>
     <string name="created_number_hint">Телефон</string>

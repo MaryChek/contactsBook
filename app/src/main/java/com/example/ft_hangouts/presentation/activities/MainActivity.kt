@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity() {
         when (destination) {
             is FromMainActivity.Navigate.ShowToast ->
                 showMessageBackgroundTime(destination.time)
-
         }
     }
 

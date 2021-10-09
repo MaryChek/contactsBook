@@ -2,9 +2,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.ft_hangouts.presentation.activities.MainActivity">
+
     <item
-        android:id="@+id/changeColor"
+        android:id="@+id/changeToPurple"
         android:orderInCategory="100"
-        android:title="@string/change_color"
+        android:title="@string/change_to_purple"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/changeToBlue"
+        android:orderInCategory="100"
+        android:title="@string/change_to_blue"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/changeToRed"
+        android:orderInCategory="100"
+        android:title="@string/change_to_red"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/changeToGreen"
+        android:orderInCategory="100"
+        android:title="@string/change_to_green"
         app:showAsAction="never" />
 </menu>
